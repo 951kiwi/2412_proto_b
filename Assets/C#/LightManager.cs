@@ -111,6 +111,9 @@ public class LightManager : MonoBehaviour
         if(battery > 0){
             battery = battery - updateMinusBattery;
         }
+        else{
+            battery = 0;
+        }
     }
 
     /// <summary>
@@ -140,6 +143,9 @@ public class LightManager : MonoBehaviour
         for(int i=0;i < 30;i++){
             yield return new WaitForSeconds(0.03f);
             FadeOut();
+            FadeOut();
+            FadeOut();
+            FadeOut();
         }
         if(startBattery){
             
@@ -157,6 +163,9 @@ public class LightManager : MonoBehaviour
         if(battery > 0){
             battery = battery - damage;
         }
+        else{
+            battery = 0;
+        }
     }
     
     /// <summary>
@@ -167,6 +176,6 @@ public class LightManager : MonoBehaviour
         if(battery < 0){
             battery = 0;
         }
-        return (int)battery;
+        return battery;
     }
 }
