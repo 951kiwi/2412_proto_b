@@ -29,7 +29,7 @@ public class StageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        /*
         Color camera = new Color(Mathf.Sin(Time.time), 0.0f, 0.0f, 1.0f);
         ChangelightStage(camera);
 
@@ -37,7 +37,7 @@ public class StageManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             
-        }
+        }*/
     }
 
     public void ChangelightStage(Color color)
@@ -47,11 +47,11 @@ public class StageManager : MonoBehaviour
         // レンダー機能切り替え
         for (int i = 0; i < m_whiteObjects.Count; i++)
         {
-            m_whiteObjects[i].color = new Color(1.0f,1.0f,1.0f,a);
+            m_whiteObjects[i].color = new Color(1.0f,1.0f,1.0f,1.0f - a);
         }
         for (int i = 0; i < m_blackObjects.Count; i++)
         {
-            m_blackObjects[i].color = new Color(1.0f, 1.0f, 1.0f, 1.0f - a);
+            m_blackObjects[i].color = new Color(0f, 0f, 0f, a);
         }
     }
 }
