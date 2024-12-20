@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isPlayerTest = false;
     [SerializeField] private Animator anim;
 
+    [SerializeField, Range(0f, 1f)] private float LightStrength = 0f;
+
     [SerializeField] private float RespawnHeight = -10f;
     // Start is called before the first frame update
     void Start()
@@ -52,11 +54,10 @@ public class PlayerController : MonoBehaviour
             input_jump = true;
         }
 
-        if(Input.GetKey(LightSwitchKey))
+        if(Input.GetKey(LightSwitchKey) || isPlayerTest)
         {
-            LightSwitch(true);
+            LightChanger(LightStrength);
         }
-        else LightSwitch(false);
 
         if(input_horizontal != 0)//Move
         {
@@ -93,9 +94,9 @@ public class PlayerController : MonoBehaviour
         is_grounded = false;
     }
 
-    public void LightSwitch(bool isLighted)
+    public void LightChanger(float _lightStrength)
     {
-        anim.SetBool("isLighted", isLighted);
+        anim.SetFloat("LightStrength", _lightStrength);
     }
 
     [SerializeField] private float lastLandLerp = 1f;
@@ -121,5 +122,30 @@ public class PlayerController : MonoBehaviour
             groundTime = 0f;
             was_grounded = false;
         }
+    }
+
+    [SerializeField] private float DamageCoolTime = 1f;
+    private bool isDamageValid = true;
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Damage" || collision.gameObject.tag == "Needle")
+        {
+            if(isDamageValid)
+            {
+                //TODO: Damage
+                isDamageValid = false;
+                StartCoroutine(DamageCool());
+            }
+        }
+    }
+
+    IEnumerator DamageCool()
+    {
+        anim.SetBool("isDamaged", true);
+        yield return new WaitForSeconds(DamageCoolTime/2f);
+        anim.SetBool("isDamaged", false);
+        yield return new WaitForSeconds(DamageCoolTime/2f);
+        isDamageValid = true;
     }
 }
