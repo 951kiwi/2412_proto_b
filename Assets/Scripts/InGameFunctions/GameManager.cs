@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] LightManager lightManager;
 
     [SerializeField] float fallBorder = -10f; // 落下判定の境界値
+    [SerializeField] float fallDamage = 10f; // 落下ダメージ
 
     private bool isGameOver = false; // ゲームオーバーかどうか
     private bool isPaused = false; // ゲームが一時停止されているかどうか
@@ -85,7 +86,7 @@ public class GameManager : MonoBehaviour
         player.position = targetPos; // プレイヤーを最後の接地点に戻す
         
         /* プレイヤーのHPを減らす */
-        /* ここでプレイヤーのHPを減らす処理を呼び出す */ /* あとで修正 */
+        lightManager.DoDamageBattery(fallDamage);
     }
 
     /* ゲームオーバー状態にする */
