@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] KeyCode LightSwitchKey = KeyCode.LeftShift;
+    [SerializeField] KeyCode JumpKey = KeyCode.Space;
     [SerializeField] bool isControllable = true;
     private Rigidbody2D rb;
     [SerializeField] private float speed = 5f;
@@ -11,13 +13,12 @@ public class PlayerController : MonoBehaviour
     bool was_grounded;
     [SerializeField] public bool is_grounded;
     private float groundTime;
-    public bool hit_Wall;
     public bool is_jumping;
     Vector3 move = Vector2.zero;
     Vector3 velocity = Vector2.zero;
     public Vector3 lastLandPos = Vector3.zero;
     private Vector3 temp_lastLandPos = Vector3.zero;
-
+    [SerializeField] private bool isPlayerTest = false;
     [SerializeField] private Animator anim;
 
     [SerializeField] private float RespawnHeight = -10f;
@@ -46,12 +47,12 @@ public class PlayerController : MonoBehaviour
             input_horizontal += 1;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(JumpKey))
         {
             input_jump = true;
         }
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(LightSwitchKey))
         {
             LightSwitch(true);
         }
@@ -60,20 +61,24 @@ public class PlayerController : MonoBehaviour
         if(input_horizontal != 0)//Move
         {
             move.x = input_horizontal * speed;
-            if(hit_Wall) move.x = 0;
             this.transform.localScale = new Vector3(input_horizontal, 1, 1);
         }
         else move.x = 0;
 
         move.x = input_horizontal * speed;
+        anim.SetFloat("Movement", Mathf.Abs(move.x));
 
-        if(input_jump && is_grounded) Jump();//Jump
-        else move.y = rb.velocity.y;
+        move.y = rb.velocity.y;
+        if(is_grounded)
+        {
+            anim.SetBool("isJump", false);
+            if(input_jump) Jump();//Jump
+        }
 
         rb.velocity = move;
         SaveLastLandPos();
 
-        if(this.transform.position.y < RespawnHeight)//Respawn
+        if(this.transform.position.y < RespawnHeight && isPlayerTest)//Respawn
         {
             this.transform.position = lastLandPos;
         }
@@ -83,6 +88,7 @@ public class PlayerController : MonoBehaviour
     {
         move.y = jumpForce;
         is_jumping = true;
+        anim.SetBool("isJump", true);
         is_grounded = false;
     }
 
@@ -91,6 +97,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isLighted", isLighted);
     }
 
+    [SerializeField] private float lastLandLerp = 1f;
     void SaveLastLandPos()
     {
         if(!was_grounded && is_grounded)
@@ -102,7 +109,7 @@ public class PlayerController : MonoBehaviour
         else if(is_grounded)
         {
             groundTime += Time.deltaTime;
-            temp_lastLandPos = Vector3.Lerp(transform.position, temp_lastLandPos, 0.5f * Time.deltaTime);
+            temp_lastLandPos = Vector3.Lerp(temp_lastLandPos, this.transform.position, lastLandLerp * Time.deltaTime);
             if(groundTime > 1f)
             {
                 lastLandPos = temp_lastLandPos;
