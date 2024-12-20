@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/* Canvas表示とゲームマネージャーの2つの責任を持ってしまっている気がする? */
 public class GameManager : MonoBehaviour
 {
-    public Transform player;
+    [SerializeField] Transform player; // プレイヤーの位置情報
+    [SerializeField] GameObject gameOverUI; // ゲームオーバーのUI
+    [SerializeField] GameObject pauseUI; // 一時停止のUI
+
+    /* 止めたり再生したりする必要があるコンポーネント */
+    [SerializeField] PlayerController playerController;
+    [SerializeField] LightManager lightManager;
+
+    [SerializeField] float fallBorder = -10f; // 落下判定の境界値
 
     private bool isGameOver = false; // ゲームオーバーかどうか
     private bool isPaused = false; // ゲームが一時停止されているかどうか
@@ -19,19 +28,21 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         nowLoadingSceneName = SceneManager.GetActiveScene().name; // 現在読み込んでいるシーンの名前を取得
+
+        InitUI(); // UI初期化
     }
 
     // Update is called once per frame
     void Update()
     {
         /* まだゲームオーバーでないかつ、バッテリー残量が0以下になったらゲームオーバー状態にする */
-        if(!isGameOver /*&& /* バッテリー残量が0以下になったら */)
+        if(!isGameOver && lightManager.getBattery() <= 0)
         {
             GameOver();
         }
 
-        /* ゲームオーバー状態でスペースキーが押されたらゲームを再スタートする */
-        if(isGameOver && Input.GetKeyDown(KeyCode.Space))
+        /* ゲームオーバー状態でエンターキーが押されたらゲームを再スタートする */
+        if(isGameOver && Input.GetKeyDown(KeyCode.Return))
         {
             RestartGame();
         }
@@ -51,15 +62,27 @@ public class GameManager : MonoBehaviour
                 PauseGame();
             }
         }
+
+        if(player.position.y < fallBorder) // プレイヤーが落下した場合
+        {
+            FallInHole();
+        }
+    }
+
+    /* UI初期化 */
+    void InitUI()
+    {
+        gameOverUI.SetActive(false); // ゲームオーバーのUIを非表示にする
+        pauseUI.SetActive(false); // 一時停止のUIを非表示にする
     }
 
     /* 穴に落ちた時の処理 */
-    void FallInHole()
+    public void FallInHole()
     {
         Debug.Log("穴に落ちた");
         /* プレイヤーを最後の接地点に戻す */
-        // Vector3 targetPos = PlayerController.LastLand(); // 最後の接地点を受け取る /* あとで修正 */
-        // player.position = targetPos; // プレイヤーを最後の接地点に戻す
+        Vector3 targetPos = playerController.lastLandPos; // 最後の接地点を受け取る
+        player.position = targetPos; // プレイヤーを最後の接地点に戻す
         
         /* プレイヤーのHPを減らす */
         /* ここでプレイヤーのHPを減らす処理を呼び出す */ /* あとで修正 */
@@ -71,7 +94,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("ゲームオーバー");
         isGameOver = true;
         /* ゲームオーバーのUIを表示する */
-        /* ここでゲームオーバーのUIを表示する処理を呼び出す */ /* あとで修正 */
+        gameOverUI.SetActive(true);
     }
 
     /* ゲームを再スタートする */
@@ -88,7 +111,12 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         
         Time.timeScale = 0; // ゲームの時間を停止する
-        /* 各コンポーネントのUpdate関数を停止する */ /* あとで修正 */
+        /* 各コンポーネントを停止させる */
+        playerController.enabled = false;
+        lightManager.enabled = false;
+
+        /* 一時停止のUIを表示する */
+        pauseUI.SetActive(true);
     }
 
     /* ゲームを再開する */
@@ -98,7 +126,12 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         
         Time.timeScale = 1f; // ゲームの時間を再開する
-        /* 各コンポーネントのUpdate関数を再開する */ /* あとで修正 */
+        /* 各コンポーネントを再開させる */
+        playerController.enabled = true;
+        lightManager.enabled = true;
+
+        /* 一時停止のUIを非表示にする */
+        pauseUI.SetActive(false);
     }
 
     public void GameClear()

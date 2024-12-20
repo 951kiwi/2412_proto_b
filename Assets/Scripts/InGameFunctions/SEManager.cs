@@ -12,8 +12,7 @@ public class SEManager : MonoBehaviour
         public AudioClip clip; // 音
     }
 
-    [SerializeField]
-    private SEData[] seDatas; // 音の名前と音を登録する配列
+    [SerializeField] SEData[] seDatas; // 音の名前と音を登録する配列
 
     /* AudioSourceを同時に鳴らしたい音の数だけ用意 */
     private AudioSource[] audioSources = new AudioSource[20];
