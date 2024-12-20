@@ -71,9 +71,10 @@ public class PlayerController : MonoBehaviour
         move.y = rb.velocity.y;
         if(is_grounded)
         {
-            anim.SetBool("isJump", false);
+            anim.SetBool("isJumping", false);
             if(input_jump) Jump();//Jump
         }
+        anim.SetBool("isGrounded", is_grounded);
 
         rb.velocity = move;
         SaveLastLandPos();
@@ -88,7 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         move.y = jumpForce;
         is_jumping = true;
-        anim.SetBool("isJump", true);
+        anim.SetBool("isJumping", true);
         is_grounded = false;
     }
 

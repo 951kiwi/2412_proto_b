@@ -118,7 +118,7 @@ MonoBehaviour:
   is_grounded: 0
   is_jumping: 0
   lastLandPos: {x: 0, y: 0, z: 0}
-  isPlayerTest: 1
+  isPlayerTest: 0
   anim: {fileID: 3169583266328849701}
   RespawnHeight: -5
   lastLandLerp: 1.58

@@ -4586,7 +4586,7 @@ Material:
     - _Main3rdTex_ScrollRotate: {r: 0, g: 0, b: 0, a: 0}
     - _MainColorAdjustTexturePan: {r: 0, g: 0, b: 0, a: 0}
     - _MainFadeTexturePan: {r: 0, g: 0, b: 0, a: 0}
-    - _MainTexHSVG: {r: 0, g: 1, b: 0, a: 1}
+    - _MainTexHSVG: {r: 0, g: 1, b: 0.82, a: 1}
     - _MainTexPan: {r: 0, g: 0, b: 0, a: 0}
     - _MainTex_ScrollRotate: {r: 0, g: 0, b: 0, a: 0}
     - _MatCap2ndBlendUV1: {r: 0, g: 0, b: 0, a: 0}
