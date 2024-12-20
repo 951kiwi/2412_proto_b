@@ -36,8 +36,8 @@ public class GroundChecker : MonoBehaviour
         {
             if(collision.gameObject.tag == tag)
             {
-                player.is_grounded = false;
-                player.is_jumping = true;
+                player.is_grounded = true;
+                player.is_jumping = false;
             }
         }
     }
