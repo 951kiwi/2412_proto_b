@@ -10,7 +10,7 @@ public class LightManager : MonoBehaviour
     
     private float startMinusBattery = 5f; //ライト点灯した時の最初の加速減り
     private float updateMinusBattery = 0.01f; //ライト点灯時の継続の減り
-    private float lowBatteryPercent = 90f; //バッテリーが残り少ない時の点滅
+    private float lowBatteryPercent = 0f; //バッテリーが残り少ない時の点滅
     private KeyCode lightButton = KeyCode.Space; //ライト点灯用ボタン
 
     private bool startBattery = true; //LightOn()で一回だけ使用するための変数
@@ -25,7 +25,7 @@ public class LightManager : MonoBehaviour
     void Start()
     {
         camera.backgroundColor = Color.black;
-        //stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+        stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
         battery = 100f;
         
     }
@@ -33,9 +33,9 @@ public class LightManager : MonoBehaviour
     void Update()
     {
         //debug用消す
-        textMeshPro.text = $"{getBattery()}";
-        
         LightOn();
+        textMeshPro.text = $"{camera.backgroundColor}";
+        stageManager.ChangelightStage(camera.backgroundColor);
         
     }
 
@@ -47,12 +47,11 @@ public class LightManager : MonoBehaviour
         if (Input.GetKey (lightButton)){//ライト点灯
             if(startBattery){
                 StartCoroutine("StartMinusBattery");//最初のバッテリーの減り
-                //stageManager.ChangelightStage();
                 startBattery = false;
             }
             
             MinusBattery();//継続的なバッテリーの減り
-            if(battery < 90){
+            if(battery < lowBatteryPercent){
                 if(!isCoroutine){
                     isCoroutine = true;
                     StartCoroutine("LowBattery");
@@ -75,22 +74,28 @@ public class LightManager : MonoBehaviour
     /// fadeINする 黒→白
     /// </summary>
     void FadeIn(){
-        float up = 0.05f;
-        if(camera.backgroundColor != Color.white){//白になったら処理停止
+        float up = 0.01f;
+        if(camera.backgroundColor.r < 1){//白になったら処理停止
             camera.backgroundColor =new Color(
             camera.backgroundColor.r + up,
             camera.backgroundColor.g + up,
             camera.backgroundColor.b + up);
         }
+        else{
+            camera.backgroundColor = new Color(1,1,1);
+        }
         
     }
     void FadeOut(){
-        float up = -0.05f;
-        if(camera.backgroundColor != Color.black){//黒になったら処理停止
+        float up = -0.01f;
+        if(camera.backgroundColor.r > 0){//黒になったら処理停止
         camera.backgroundColor =new Color(
             camera.backgroundColor.r + up,
             camera.backgroundColor.g + up,
             camera.backgroundColor.b + up);
+        }
+        else{
+            camera.backgroundColor =new Color(0,0,0);
         }
         
     }
