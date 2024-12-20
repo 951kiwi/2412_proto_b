@@ -12,6 +12,7 @@ public class LightManager : MonoBehaviour
     private bool startBattery = true;
     private bool isCoroutine = false;
     private KeyCode lightButton = KeyCode.Space;
+    private StageManager stageManager;
     public UnityEngine.Camera camera;
 
     //ここからしたの変数は消す。
@@ -21,6 +22,7 @@ public class LightManager : MonoBehaviour
     void Start()
     {
         camera.backgroundColor = Color.black;
+        stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
         battery = 100f;
         
     }
@@ -42,11 +44,12 @@ public class LightManager : MonoBehaviour
         if (Input.GetKey (lightButton)){//ライト点灯
             if(startBattery){
                 StartCoroutine("StartMinusBattery");//最初のバッテリーの減り
+                stageManager.ChangelightStage();
                 startBattery = false;
             }
             
             MinusBattery();//継続的なバッテリーの減り
-            if(battery < 50){
+            if(battery < 90){
                 if(!isCoroutine){
                     isCoroutine = true;
                     StartCoroutine("LowBattery");
@@ -115,8 +118,8 @@ public class LightManager : MonoBehaviour
     /// バッテリーが減った場合に点滅させる。
     /// </summary>
     IEnumerator LowBattery(){
-        for(int i=0;i < 15;i++){
-            yield return new WaitForSeconds(0.05f);
+        for(int i=0;i < 30;i++){
+            yield return new WaitForSeconds(0.025f);
             FadeIn();
         }
         yield return new WaitForSeconds(2f);
