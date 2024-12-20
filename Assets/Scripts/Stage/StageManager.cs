@@ -29,15 +29,9 @@ public class StageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+
         Color camera = new Color(Mathf.Sin(Time.time), 0.0f, 0.0f, 1.0f);
         ChangelightStage(camera);
-
-        // êÿÇËë÷Ç¶
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            
-        }*/
     }
 
     public void ChangelightStage(Color color)
