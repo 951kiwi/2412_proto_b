@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundTest : MonoBehaviour
 {
-    public SEManager seManager;
+    [SerializeField] SEManager seManager;
     // Start is called before the first frame update
     void Start()
     {
