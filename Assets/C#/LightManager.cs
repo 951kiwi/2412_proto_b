@@ -25,7 +25,7 @@ public class LightManager : MonoBehaviour
     void Start()
     {
         camera.backgroundColor = Color.black;
-        stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+        //stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
         battery = 100f;
         
     }
@@ -47,7 +47,7 @@ public class LightManager : MonoBehaviour
         if (Input.GetKey (lightButton)){//ライト点灯
             if(startBattery){
                 StartCoroutine("StartMinusBattery");//最初のバッテリーの減り
-                stageManager.ChangelightStage();
+                //stageManager.ChangelightStage();
                 startBattery = false;
             }
             
@@ -92,6 +92,7 @@ public class LightManager : MonoBehaviour
             camera.backgroundColor.g + up,
             camera.backgroundColor.b + up);
         }
+        
     }
     
     /// <summary>
