@@ -31,7 +31,7 @@ namespace InGameUI
 
         private void ChangeImage()
         {
-            _batteryValue = _lightManager.getBattery();
+            _batteryValue = (int)_lightManager.getBattery();
             if (_batteryValue <= 0)
             {
                 _image.sprite = _sprites[0];

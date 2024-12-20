@@ -34,7 +34,7 @@ public class LightManager : MonoBehaviour
     {
         //debug用消す
         LightOn();
-        textMeshPro.text = $"{camera.backgroundColor}";
+        textMeshPro.text = $"{battery}";
         stageManager.ChangelightStage(camera.backgroundColor);
         
     }
@@ -99,6 +99,10 @@ public class LightManager : MonoBehaviour
         }
         
     }
+
+    
+
+    
     
     /// <summary>
     /// フレームあたりでバッテリーを減らしていく。
@@ -127,12 +131,13 @@ public class LightManager : MonoBehaviour
     /// バッテリーが減った場合に点滅させる。
     /// </summary>
     IEnumerator LowBattery(){
-        for(int i=0;i < 30;i++){
-            yield return new WaitForSeconds(0.025f);
+        for(int i=0;i < 60;i++){
+            yield return new WaitForSeconds(0f);
+            FadeIn();
             FadeIn();
         }
         yield return new WaitForSeconds(2f);
-        for(int i=0;i < 15;i++){
+        for(int i=0;i < 30;i++){
             yield return new WaitForSeconds(0.03f);
             FadeOut();
         }
@@ -144,7 +149,21 @@ public class LightManager : MonoBehaviour
         StartCoroutine("LowBattery");
     }
 
-    public int getBattery(){
+    /// <summary>
+    /// バッテリーにダメージを与える。
+    /// </summary>
+    /// <param name="damage">ダメージ数</param>
+    public void DoDamageBattery(float damage){
+        if(battery > 0){
+            battery = battery - damage;
+        }
+    }
+    
+    /// <summary>
+    /// バッテリー状態を取得する
+    /// </summary>
+    /// <returns>battery</returns>
+    public float getBattery(){
         if(battery < 0){
             battery = 0;
         }
