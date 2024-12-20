@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         /* ベストスコアを読み込む */
         List<int> bestScores = SaveAndLoadManager.LoadData<List<int>>("BestScores" + stageNum);
 
-        bestScores.Add(score); // ベストスコアに現在のスコア(バッテリー残量に依存)を追加 /* あとで修正 */
+        bestScores.Add(score); // ベストスコアに現在のスコア(バッテリー残量に依存)を追加
         bestScores.Reverse(); // ベストスコアを降順に並び替える
 
         /* ベストスコアの数が上限を超えている場合 */
@@ -183,6 +183,8 @@ public class GameManager : MonoBehaviour
     int CalcScore()
     {
         /* スコアを計算する処理 */
-        return 0; // 仮の値
+        float battery = lightManager.getBattery();
+        int score = (int)(battery * 100); // バッテリー残量*100を整数にしてスコアとする
+        return score;
     }
 }
