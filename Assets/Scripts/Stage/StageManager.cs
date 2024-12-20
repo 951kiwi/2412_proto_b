@@ -21,46 +21,37 @@ public class StageManager : MonoBehaviour
     [Header("黒いステージオブジェクト"),SerializeField]
     List<Tilemap> m_blackObjects;
 
-    // オブジェクトのレンダー機能
-    [SerializeField]
-    List<TilemapRenderer> m_whiteObjectsRenderer;
-    [SerializeField]
-    List<TilemapRenderer> m_blackObjectsRenderer;
-
     // Start is called before the first frame update
     void Start()
     {
-        //// レンダー機能取得
-        //for (int i = 0; i < m_whiteObjects.Count; i++)
-        //{
-        //    m_whiteObjectsRenderer[i] = m_whiteObjects[i].GetComponent<TilemapRenderer>();
-        //}
-        //for (int i = 0; i < m_whiteObjects.Count; i++)
-        //{
-        //    m_blackObjectsRenderer[i] = m_blackObjects[i].GetComponent<TilemapRenderer>();
-        //}
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        Color camera = new Color(Mathf.Sin(Time.time), 0.0f, 0.0f, 1.0f);
+        ChangelightStage(camera);
+
         // 切り替え
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            ChangelightStage();
+            
         }
     }
 
-    public void ChangelightStage()
+    public void ChangelightStage(Color color)
     {
+        // 透明度
+        float a = color.r;
         // レンダー機能切り替え
         for (int i = 0; i < m_whiteObjects.Count; i++)
         {
-            m_whiteObjectsRenderer[i].enabled = m_whiteObjectsRenderer[i].enabled ? false : true;
+            m_whiteObjects[i].color = new Color(1.0f,1.0f,1.0f,a);
         }
-        for (int i = 0; i < m_whiteObjects.Count; i++)
+        for (int i = 0; i < m_blackObjects.Count; i++)
         {
-            m_blackObjectsRenderer[i].enabled = m_blackObjectsRenderer[i].enabled ? false : true;
+            m_blackObjects[i].color = new Color(1.0f, 1.0f, 1.0f, 1.0f - a);
         }
     }
 }
