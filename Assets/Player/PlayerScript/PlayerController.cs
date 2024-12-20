@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] KeyCode LightSwitchKey = KeyCode.LeftShift;
     [SerializeField] KeyCode JumpKey = KeyCode.Space;
+
+    [SerializeField] private string[] DamegeTags;
     [SerializeField] bool isControllable = true;
     private Rigidbody2D rb;
     [SerializeField] private float speed = 5f;
@@ -23,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField, Range(0f, 1f)] private float LightStrength = 0f;
 
-    [SerializeField] private float RespawnHeight = -10f;
+    private float RespawnHeight = -10f;
     // Start is called before the first frame update
     void Start()
     {
@@ -99,7 +101,7 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("LightStrength", _lightStrength);
     }
 
-    [SerializeField] private float lastLandLerp = 1f;
+    private float lastLandLerp = 1.58f;
     void SaveLastLandPos()
     {
         if(!was_grounded && is_grounded)
@@ -124,18 +126,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    [SerializeField] private LightManager _lightManager;
+    [SerializeField] private float Damage_value = 10f;
     [SerializeField] private float DamageCoolTime = 1f;
+
     private bool isDamageValid = true;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Damage" || collision.gameObject.tag == "Needle")
+        foreach(string tag in DamegeTags)
         {
-            if(isDamageValid)
+            if(collision.gameObject.tag == tag)
             {
-                //TODO: Damage
-                isDamageValid = false;
-                StartCoroutine(DamageCool());
+                if(isDamageValid)
+                {
+                    if(_lightManager != null) _lightManager.DoDamageBattery(Damage_value);
+                    isDamageValid = false;
+                    StartCoroutine(DamageCool());
+                }
             }
         }
     }
