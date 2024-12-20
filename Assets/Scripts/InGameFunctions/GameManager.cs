@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.SceneManagement;
 /* Canvas表示とゲームマネージャーの2つの責任を持ってしまっている気がする? */
 public class GameManager : MonoBehaviour
 {
+    public float testScore; // テスト用スコア
+
     [SerializeField] Transform player; // プレイヤーの位置情報
     [SerializeField] GameObject gameOverUI; // ゲームオーバーのUI
     [SerializeField] GameObject pauseUI; // 一時停止のUI
@@ -25,6 +28,9 @@ public class GameManager : MonoBehaviour
     /* もし1ステージに複数のシーンがある場合は、どこかからステージ番号を持ってくる必要がある */
 
     private const int BESTSCORELIMIT = 3; // ベストスコアの最大数
+
+    private const string REACHSTAGEKEY = "ReachStage"; // ステージクリア状況のキー
+    private const string BESTSCOREKEY = "BestScores"; // ベストスコアのキー
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +48,8 @@ public class GameManager : MonoBehaviour
             GameOver();
         }
 
-        /* ゲームオーバー状態でエンターキーが押されたらゲームを再スタートする */
-        if(isGameOver && Input.GetKeyDown(KeyCode.Return))
+        /* ゲームオーバー状態またはポーズ状態でエンターキーが押されたらゲームを再スタートする */
+        if((isGameOver || isPaused) && Input.GetKeyDown(KeyCode.Return))
         {
             RestartGame();
         }
@@ -140,7 +146,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("ゲームクリア");
         /* 現在のステージの数値を取得 */
         int stageNum = int.Parse(nowLoadingSceneName.Substring(SCENESUBSTRING));
-        int stageScore = CalcScore(); // スコアを計算する
+        int stageScore = CalcScore(lightManager.getBattery()); // バッテリー残量からスコアを計算する
 
         UpdateReachStage(stageNum); // ステージクリア状況を更新する
         UpdateBestScores(stageNum, stageScore); // ベストスコアを更新する
@@ -152,13 +158,15 @@ public class GameManager : MonoBehaviour
     void UpdateReachStage(int stageNum)
     {
         /* ステージクリア状況を読み込む */
-        int reachStage = SaveAndLoadManager.LoadData<int>("ReachStage");
+        int reachStage = SaveAndLoadManager.LoadData<int>(REACHSTAGEKEY);
+        Debug.Log("reachStage: " + reachStage);
 
         /* 現在のステージがステージクリア状況よりも大きい場合 */
-        if(reachStage < stageNum)
+        if(stageNum > reachStage)
         {
             /* ステージクリア状況を更新する */
-            SaveAndLoadManager.SaveData("ReachStage", stageNum);
+            SaveAndLoadManager.SaveData<int>(REACHSTAGEKEY, stageNum);
+            Debug.Log(stageNum);
         }
     }
 
@@ -166,6 +174,10 @@ public class GameManager : MonoBehaviour
     {
         /* ベストスコアを読み込む */
         List<int> bestScores = SaveAndLoadManager.LoadData<List<int>>("BestScores" + stageNum);
+        if(bestScores == null) // ベストスコアが存在しない場合
+        {
+            bestScores = new List<int>(); // ベストスコアを新しく作成する
+        }
 
         bestScores.Add(score); // ベストスコアに現在のスコア(バッテリー残量に依存)を追加
         bestScores.Reverse(); // ベストスコアを降順に並び替える
@@ -177,14 +189,35 @@ public class GameManager : MonoBehaviour
         }
 
         /* ベストスコアを保存する */
-        SaveAndLoadManager.SaveData("BestScores" + stageNum, bestScores);
+        string key = BESTSCOREKEY + stageNum;
+        SaveAndLoadManager.SaveData<List<int>>(key, bestScores);
     }
 
-    int CalcScore()
+    int CalcScore(float battery)
     {
         /* スコアを計算する処理 */
-        float battery = lightManager.getBattery();
         int score = (int)(battery * 100); // バッテリー残量*100を整数にしてスコアとする
         return score;
+    }
+
+    public void TestReachStage()
+    {
+        int stageNum = 1;
+        UpdateReachStage(stageNum); // ステージクリア状況を更新する
+        var key = REACHSTAGEKEY;
+        Debug.Log("Test2: " + key); // キーを表示
+        int loadData = SaveAndLoadManager.LoadData<int>(REACHSTAGEKEY); // ステージクリア状況を読み込む
+        Debug.Log("Test: " + loadData); // ステージクリア状況を表示
+    }
+
+    public void TestBestScores()
+    {
+        int stageNum = 1;
+        int score = CalcScore(testScore); // スコアを計算する
+        UpdateBestScores(stageNum, score); // ベストスコアを更新する
+
+        string key = BESTSCOREKEY + stageNum;
+        List<int> bestScores = SaveAndLoadManager.LoadData<List<int>>(key); // ベストスコアを読み込む
+        Debug.Log(String.Join(",", bestScores)); // ベストスコアを表示
     }
 }
