@@ -137,23 +137,36 @@ public class GameManager : MonoBehaviour
     public void GameClear()
     {
         Debug.Log("ゲームクリア");
-
         /* 現在のステージの数値を取得 */
         int stageNum = int.Parse(nowLoadingSceneName.Substring(SCENESUBSTRING));
+        int stageScore = CalcScore(); // スコアを計算する
 
+        UpdateReachStage(stageNum); // ステージクリア状況を更新する
+        UpdateBestScores(stageNum, stageScore); // ベストスコアを更新する
+        
+        /* ゲームクリアのUIを表示する */
+        /* ここでゲームクリアのUIを表示する処理を呼び出す */ /* あとで修正 */
+    }
+
+    void UpdateReachStage(int stageNum)
+    {
         /* ステージクリア状況を読み込む */
         int reachStage = SaveAndLoadManager.LoadData<int>("ReachStage");
 
         /* 現在のステージがステージクリア状況よりも大きい場合 */
-        if(reachStage < stageNum) // シーン名の5文字目以降を取り出して数値に変換 
+        if(reachStage < stageNum)
         {
             /* ステージクリア状況を更新する */
             SaveAndLoadManager.SaveData("ReachStage", stageNum);
         }
+    }
 
+    void UpdateBestScores(int stageNum, int score)
+    {
         /* ベストスコアを読み込む */
         List<int> bestScores = SaveAndLoadManager.LoadData<List<int>>("BestScores" + stageNum);
-        bestScores.Add(0); // ベストスコアに現在のスコア(バッテリー残量)を追加 /* あとで修正 */
+
+        bestScores.Add(score); // ベストスコアに現在のスコア(バッテリー残量に依存)を追加 /* あとで修正 */
         bestScores.Reverse(); // ベストスコアを降順に並び替える
 
         /* ベストスコアの数が上限を超えている場合 */
@@ -164,8 +177,11 @@ public class GameManager : MonoBehaviour
 
         /* ベストスコアを保存する */
         SaveAndLoadManager.SaveData("BestScores" + stageNum, bestScores);
+    }
 
-        /* ゲームクリアのUIを表示する */
-        /* ここでゲームクリアのUIを表示する処理を呼び出す */ /* あとで修正 */
+    int CalcScore()
+    {
+        /* スコアを計算する処理 */
+        return 0; // 仮の値
     }
 }
