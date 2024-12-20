@@ -6,14 +6,17 @@ using TMPro;
 
 public class LightManager : MonoBehaviour
 {
-    public float battery;
-    private float startMinusBattery = 5f;
-    private float updateMinusBattery = 0.01f;
-    private bool startBattery = true;
-    private bool isCoroutine = false;
-    private KeyCode lightButton = KeyCode.Space;
-    private StageManager stageManager;
-    public UnityEngine.Camera camera;
+    private float battery; //バッテリー変数
+    
+    private float startMinusBattery = 5f; //ライト点灯した時の最初の加速減り
+    private float updateMinusBattery = 0.01f; //ライト点灯時の継続の減り
+    private float lowBatteryPercent = 90f; //バッテリーが残り少ない時の点滅
+    private KeyCode lightButton = KeyCode.Space; //ライト点灯用ボタン
+
+    private bool startBattery = true; //LightOn()で一回だけ使用するための変数
+    private bool isCoroutine = false; //コルーチンが存在するかの確認
+    private StageManager stageManager; //ステージマネージャー
+    public UnityEngine.Camera camera; //カメラ取得(背景色変更用)
 
     //ここからしたの変数は消す。
     public TextMeshProUGUI textMeshPro;
@@ -30,7 +33,7 @@ public class LightManager : MonoBehaviour
     void Update()
     {
         //debug用消す
-        textMeshPro.text = $"{(int)battery}";
+        textMeshPro.text = $"{getBattery()}";
         
         LightOn();
         
@@ -133,5 +136,12 @@ public class LightManager : MonoBehaviour
             yield break;
         }
         StartCoroutine("LowBattery");
+    }
+
+    public int getBattery(){
+        if(battery < 0){
+            battery = 0;
+        }
+        return (int)battery;
     }
 }
