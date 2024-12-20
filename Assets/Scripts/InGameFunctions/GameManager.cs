@@ -58,7 +58,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("穴に落ちた");
         /* プレイヤーを最後の接地点に戻す */
-        // player.position = PlayerController.lastGroundPos; // 最後の接地点を受け取り、プレイヤーの位置をそこに戻す /* あとで修正 */
+        // Vector3 targetPos = PlayerController.LastLand(); // 最後の接地点を受け取る /* あとで修正 */
+        // player.position = targetPos; // プレイヤーを最後の接地点に戻す
         
         /* プレイヤーのHPを減らす */
         /* ここでプレイヤーのHPを減らす処理を呼び出す */ /* あとで修正 */
