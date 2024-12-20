@@ -112,6 +112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightSwitchKey: 304
   JumpKey: 32
+  DamegeTags:
+  - Needle
   isControllable: 1
   speed: 5
   jumpForce: 8
@@ -120,8 +122,10 @@ MonoBehaviour:
   lastLandPos: {x: 0, y: 0, z: 0}
   isPlayerTest: 0
   anim: {fileID: 3169583266328849701}
+  LightStrength: 0
   RespawnHeight: -5
   lastLandLerp: 1.58
+  DamageCoolTime: 1
 --- !u!1 &2601166755470766110
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6749942070746007848}
+  Tags:
+  - Ground
+  - Needle
 --- !u!1001 &324308592893714587
 PrefabInstance:
   m_ObjectHideFlags: 0
