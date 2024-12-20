@@ -170,10 +170,6 @@ MonoBehaviour:
   - {fileID: 613227114}
   m_blackObjects:
   - {fileID: 993768079}
-  m_whiteObjectsRenderer:
-  - {fileID: 613227113}
-  m_blackObjectsRenderer:
-  - {fileID: 993768078}
 --- !u!1 &239416036
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,7 +848,7 @@ TilemapRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993768077}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
