@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace OutGame
     /// <summary>
     /// 対象のオブジェクトのX軸を基準に移動する
     /// </summary>
-    public class MoveMark : MonoBehaviour
+    public class MoveObject : MonoBehaviour
     {
         [SerializeField] private SelectStage _selectStage;
         [SerializeField, Header("動く位置")] private List<GameObject> _movePoints;
