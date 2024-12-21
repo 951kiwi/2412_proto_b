@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] KeyCode LightSwitchKey = KeyCode.LeftShift;
     [SerializeField] KeyCode JumpKey = KeyCode.Space;
+
+    [SerializeField] private string[] DamegeTags;
     [SerializeField] bool isControllable = true;
     private Rigidbody2D rb;
     [SerializeField] private float speed = 5f;
@@ -21,7 +23,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isPlayerTest = false;
     [SerializeField] private Animator anim;
 
-    [SerializeField] private float RespawnHeight = -10f;
+    [SerializeField, Range(0f, 1f)] private float LightStrength = 0f;
+
+    private float RespawnHeight = -10f;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,11 +56,10 @@ public class PlayerController : MonoBehaviour
             input_jump = true;
         }
 
-        if(Input.GetKey(LightSwitchKey))
+        if(Input.GetKey(LightSwitchKey) || isPlayerTest)
         {
-            LightSwitch(true);
+            LightChanger(LightStrength);
         }
-        else LightSwitch(false);
 
         if(input_horizontal != 0)//Move
         {
@@ -93,12 +96,12 @@ public class PlayerController : MonoBehaviour
         is_grounded = false;
     }
 
-    public void LightSwitch(bool isLighted)
+    public void LightChanger(float _lightStrength)
     {
-        anim.SetBool("isLighted", isLighted);
+        anim.SetFloat("LightStrength", _lightStrength);
     }
 
-    [SerializeField] private float lastLandLerp = 1f;
+    private float lastLandLerp = 1.58f;
     void SaveLastLandPos()
     {
         if(!was_grounded && is_grounded)
@@ -121,5 +124,36 @@ public class PlayerController : MonoBehaviour
             groundTime = 0f;
             was_grounded = false;
         }
+    }
+
+    [SerializeField] private LightManager _lightManager;
+    [SerializeField] private float Damage_value = 10f;
+    [SerializeField] private float DamageCoolTime = 1f;
+
+    private bool isDamageValid = true;
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        foreach(string tag in DamegeTags)
+        {
+            if(collision.gameObject.tag == tag)
+            {
+                if(isDamageValid)
+                {
+                    if(_lightManager != null) _lightManager.DoDamageBattery(Damage_value);
+                    isDamageValid = false;
+                    StartCoroutine(DamageCool());
+                }
+            }
+        }
+    }
+
+    IEnumerator DamageCool()
+    {
+        anim.SetBool("isDamaged", true);
+        yield return new WaitForSeconds(DamageCoolTime/2f);
+        anim.SetBool("isDamaged", false);
+        yield return new WaitForSeconds(DamageCoolTime/2f);
+        isDamageValid = true;
     }
 }
