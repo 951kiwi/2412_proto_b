@@ -62,5 +62,9 @@ public class GroundChecker : MonoBehaviour
                 player.isMoveGround = true;
             }
         }
+        if(collision.gameObject.tag == "EnemyHead")
+        {
+            player.StepEnemy();
+        }
     }
 }
