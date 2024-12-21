@@ -22,7 +22,7 @@ namespace OutGame
             NumChange();
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                SceneChanger.Instance.Change(_stageNames[_num]);
+                SceneChanger.Instance.FadeChange(_stageNames[_num]);
             }
         }
 

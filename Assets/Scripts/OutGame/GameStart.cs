@@ -14,7 +14,7 @@ namespace OutGame
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                SceneChanger.Instance.Change(_sceneName);
+                SceneChanger.Instance.FadeChange(_sceneName);
             }
         }
     }
