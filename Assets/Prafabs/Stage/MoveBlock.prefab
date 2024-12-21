@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 214416554609308351}
   - component: {fileID: 5084345651915390068}
   m_Layer: 0
-  m_Name: WhiteMoveBlock
+  m_Name: MoveBlock
   m_TagString: MoveGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
