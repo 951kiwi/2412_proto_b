@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f5b3d9430a28ed45a521ad767dd61ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beforePosY: 0
 --- !u!70 &356335629
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -976,6 +977,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6749942070746007848, guid: a499d875a2cbe1b40a8959dcc4f998c3, type: 3}
+      propertyPath: _lightManager
+      value: 
+      objectReference: {fileID: 921337291}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
