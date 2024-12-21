@@ -390,7 +390,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._EmissionColor.r
+    attribute: material._Emission2ndColor.r
     path: body
     classID: 137
     script: {fileID: 0}
@@ -411,7 +411,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._EmissionColor.g
+    attribute: material._Emission2ndColor.g
     path: body
     classID: 137
     script: {fileID: 0}
@@ -432,7 +432,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._EmissionColor.b
+    attribute: material._Emission2ndColor.b
     path: body
     classID: 137
     script: {fileID: 0}
@@ -453,7 +453,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._EmissionColor.a
+    attribute: material._Emission2ndColor.a
     path: body
     classID: 137
     script: {fileID: 0}
@@ -1050,7 +1050,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._EmissionColor.r
+    attribute: material._Emission2ndColor.r
     path: body
     classID: 137
     script: {fileID: 0}
@@ -1071,7 +1071,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._EmissionColor.g
+    attribute: material._Emission2ndColor.g
     path: body
     classID: 137
     script: {fileID: 0}
@@ -1092,7 +1092,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._EmissionColor.b
+    attribute: material._Emission2ndColor.b
     path: body
     classID: 137
     script: {fileID: 0}
@@ -1113,7 +1113,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._EmissionColor.a
+    attribute: material._Emission2ndColor.a
     path: body
     classID: 137
     script: {fileID: 0}
