@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
 
         if(player.position.y < fallBorder) // プレイヤーが落下した場合
         {
+            Debug.Log("落下");
             FallInHole();
         }
     }
@@ -129,8 +130,6 @@ public class GameManager : MonoBehaviour
         
         /* プレイヤーのHPを減らす */
         lightManager.DoDamageBattery(fallDamage);
-        /* 音を鳴らす */
-        seManager.Play("Damage");
 
         /* プレイヤーのアニメーションを再生する */
         playerController.PlayerDamage(false);   

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmDatas:
-  - name: InGameBGM
+  - name: InGameBGM1
     clip: {fileID: 8300000, guid: 48d0aebafa6a1ea499ee59707eda19fb, type: 3}
 --- !u!82 &8030387338070623480
 AudioSource:
