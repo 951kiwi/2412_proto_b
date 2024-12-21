@@ -5,9 +5,12 @@ using UnityEngine;
 public class SoundTest : MonoBehaviour
 {
     [SerializeField] SEManager seManager;
+    [SerializeField] BGMManager bgmManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        bgmManager.Play("InGameBGM1");
     }
 
     // Update is called once per frame

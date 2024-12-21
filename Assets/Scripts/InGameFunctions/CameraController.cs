@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] Transform player;
-    [SerializeField] float underLimit = -2.5f; // カメラの下限値
-    [SerializeField] float leftLimit = -2.5f; // カメラの左限値
+    [SerializeField] float underLimit = 0f; // カメラの下限値
+    [SerializeField] float leftLimit = 0f; // カメラの左限値
     // Start is called before the first frame update
     void Start()
     {
