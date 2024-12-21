@@ -1,10 +1,10 @@
 /**********************************************************
  *
  *  GoalChacker.cs
- *  ƒS[ƒ‹‚Ì”»’è
+ *  ï¿½Sï¿½[ï¿½ï¿½ï¿½Ì”ï¿½ï¿½ï¿½
  *
- *  §ìÒ : ûüX àŠ–¾
- *  §ì“ú : 2024/12/21
+ *  ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½X ï¿½ï¿½ï¿½ï¿½
+ *  ï¿½ï¿½ï¿½ï¿½ï¿½ : 2024/12/21
  *
  *********************************************************/
 using System.Collections;
@@ -13,20 +13,20 @@ using UnityEngine;
 
 public class GoalChecker : MonoBehaviour
 {
-    // ƒQ[ƒ€ƒ}ƒl[ƒWƒƒ[
+    // ï¿½Qï¿½[ï¿½ï¿½ï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[
     [SerializeField] 
     private GameManager m_gameManager;
 
     /// <summary>
-    /// ƒS[ƒ‹‚ÆƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è
+    /// ï¿½Sï¿½[ï¿½ï¿½ï¿½Æƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Æ‚Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
     /// </summary>
-    /// <param name="collision">“–‚½‚è”»’è</param>
-    void OnTriggerStay2D(Collider2D collision)
+    /// <param name="collision">ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½</param>
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        // ƒvƒŒƒCƒ„[‚Æ“–‚½‚Á‚½‚ç
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Æ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (collision.gameObject.tag == "Player")
         {
-            // ƒNƒŠƒA
+            // ï¿½Nï¿½ï¿½ï¿½A
             m_gameManager.GameClear();
         }
         
