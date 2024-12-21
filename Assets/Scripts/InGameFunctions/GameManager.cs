@@ -23,12 +23,12 @@ public class GameManager : MonoBehaviour
     public float testScore; // テスト用スコア
     public int testStage; // テスト用ステージ番号
 
-    [SerializeField] Transform player; // プレイヤーの位置情報
+    private Transform player; // プレイヤーの位置情報
     [SerializeField] GameObject gameOverUI; // ゲームオーバーのUI
     [SerializeField] GameObject pauseUI; // 一時停止のUI
 
     /* 止めたり再生したりする必要があるコンポーネント */
-    [SerializeField] PlayerController playerController;
+    private PlayerController playerController;
     [SerializeField] LightManager lightManager;
 
     /* シーンチェンジで使うコンポーネント */
@@ -49,13 +49,17 @@ public class GameManager : MonoBehaviour
     private const string REACHSTAGEKEY = "ReachStage"; // ステージクリア状況のキー
     private const string BESTSCOREKEY = "BestScores"; // ベストスコアのキー
     // Start is called before the first frame update
-    void Start()
+    void Awake() // ゲーム開始時に呼び出される処理
     {
         nowLoadingSceneName = SceneManager.GetActiveScene().name; // 現在読み込んでいるシーンの名前を取得
 
         InitUI(); // UI初期化
         Debug.Log("pause: " + isPaused);
         Time.timeScale = 1f; // ポーズからリスタートしたときに、ゲームの時間を再開する
+
+        /* 必要なコンポーネントを取得 */
+        player = GameObject.Find("Player").transform;
+        playerController = player.GetComponent<PlayerController>(); // プレイヤーコントローラーを取得
     }
 
     // Update is called once per frame
@@ -112,6 +116,7 @@ public class GameManager : MonoBehaviour
         
         /* プレイヤーのHPを減らす */
         lightManager.DoDamageBattery(fallDamage);
+        /* 音を鳴らす */ /* あとで修正 */
     }
 
     /* ゲームオーバー状態にする */
