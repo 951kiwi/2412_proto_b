@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("pause: " + isPaused);
         Time.timeScale = 1f; // ポーズからリスタートしたときに、ゲームの時間を再開する
 
-        /* プレイヤーを取得 */
+        /* 必要なコンポーネントを取得 */
         player = GameObject.Find("Player").transform;
         playerController = player.GetComponent<PlayerController>(); // プレイヤーコントローラーを取得
     }
@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
         
         /* プレイヤーのHPを減らす */
         lightManager.DoDamageBattery(fallDamage);
+        /* 音を鳴らす */ /* あとで修正 */
     }
 
     /* ゲームオーバー状態にする */
