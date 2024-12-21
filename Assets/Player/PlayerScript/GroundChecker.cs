@@ -35,6 +35,7 @@ public class GroundChecker : MonoBehaviour
             if(collision.gameObject.tag == tag)
             {
                 player.transform.parent = null;
+                player.isMoveGround = false;
             }
         }
     }
@@ -58,6 +59,7 @@ public class GroundChecker : MonoBehaviour
             if(collision.gameObject.tag == tag)
             {
                 player.transform.parent = collision.gameObject.transform;
+                player.isMoveGround = true;
             }
         }
     }
