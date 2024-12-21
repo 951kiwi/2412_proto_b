@@ -186,6 +186,7 @@ public class PlayerController : MonoBehaviour
     public void PlayerGameOver(bool isGameOver = true)
     {
         isControllable = !isGameOver;
+        rb.simulated = isControllable;
         anim.SetBool("isGameOver", isGameOver);
     }
 }
