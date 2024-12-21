@@ -1463,6 +1463,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackMoveBlock
       objectReference: {fileID: 0}
+    - target: {fileID: 8898435555860617770, guid: 766ef965ea8d6314e8507c71e098bc9e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
