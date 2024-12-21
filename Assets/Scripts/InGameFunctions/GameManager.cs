@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
     [Serializable]
     struct BestScoresData
     {
-        public List<List<int>> bestScores; // ベストスコア
+        public Dictionary<int, List<int>> bestScores; // ベストスコア
     }
     public float testScore; // テスト用スコア
     public int testStage; // テスト用ステージ番号
@@ -160,11 +161,17 @@ public class GameManager : MonoBehaviour
         int stageNum = int.Parse(nowLoadingSceneName.Substring(SCENESUBSTRING));
         int stageScore = CalcScore(lightManager.getBattery()); // バッテリー残量からスコアを計算する
 
+        /* 一旦データ保存は保留
         UpdateReachStage(stageNum); // ステージクリア状況を更新する
         UpdateBestScores(stageNum, stageScore); // ベストスコアを更新する
+        */
+
+        ResultDataStore.Score = stageScore; // リザルトシーンのためにスコアを保存する
         
-        /* ゲームクリアのUIを表示する */
         /* ここでゲームクリアのUIを表示する処理を呼び出す */ /* あとで修正 */
+        
+        /* リザルトシーンに飛ばす */
+        SceneManager.LoadScene("Result");
     }
 
     void UpdateReachStage(int stageNum)
@@ -179,6 +186,7 @@ public class GameManager : MonoBehaviour
         {
             /* ステージクリア状況を更新する */
             reachStageData.reachStage = stageNum;
+            Debug.Log("reachStageData: " + reachStageData.reachStage); // ステージクリア状況を表示
             SaveAndLoadManager.SaveData<ReachStageData>(REACHSTAGEKEY, reachStageData); // ステージクリア状況を保存する
             Debug.Log(stageNum);
         }
@@ -187,14 +195,51 @@ public class GameManager : MonoBehaviour
     void UpdateBestScores(int stageNum, int score)
     {
         /* ベストスコアを読み込む */
-        BestScoresData bestScores = SaveAndLoadManager.LoadData<BestScoresData>(BESTSCOREKEY);
-        List<int> bestScoresList = bestScores.bestScores[stageNum - 1]; // 現在のステージのベストスコアを取得 0-indexed
+        BestScoresData bestScoresData = SaveAndLoadManager.LoadData<BestScoresData>(BESTSCOREKEY);
 
-        if(bestScoresList == null) // ベストスコアが存在しない場合
+        /* bestScoresDataがnullの場合 */
+        /*
+        if(bestScoresData.bestScores)
         {
-            bestScoresList = new List<int>(); // ベストスコアを新しく作成する
+            bestScoresData = new BestScoresData(); // ベストスコアを新しく作成する
+        }
+        */
+
+        Debug.Log(bestScoresData);
+        Debug.Log("突破");
+
+        /* ベストスコアのDictionaryがnullの場合 */
+        if(bestScoresData.bestScores == null)
+        {
+            Debug.Log("dictCreate");
+            bestScoresData.bestScores = new Dictionary<int, List<int>>(); // ベストスコアDicを新しく作成する
         }
 
+        /* 現在のステージのベストスコアが登録されていない場合 */
+        if(!bestScoresData.bestScores.ContainsKey(stageNum))
+        {
+            bestScoresData.bestScores.Add(stageNum, new List<int>()); // ベストスコアを新しく作成する
+        }
+
+        Debug.Log(bestScoresData.bestScores[stageNum]);
+        Debug.Log("突破2");
+
+        List<int> bestScoresList; // ベストスコアを新しく作成する
+
+        /* 現在のステージのベストスコアを取得 */
+        try
+        {
+            bestScoresList = bestScoresData.bestScores[stageNum]; // 現在のステージのベストスコアを取得 0-indexed
+        }
+        catch(System.Exception e) // 現在のステージのベストスコアが存在しない場合
+        {
+            Debug.Log("ベストスコア取得エラー");
+            List<int> ints = new List<int>();
+            bestScoresData.bestScores[stageNum] = ints; // 元データにベストスコアを新しく作成する
+            // bestScoresData.bestScores[stageNum - 1].Add(); // 元データにベストスコアを新しく作成する
+            bestScoresList = new List<int>(); // 更新用データにベストスコアを新しく作成する
+        }
+        
         bestScoresList.Add(score); // ベストスコアに現在のスコア(バッテリー残量に依存)を追加
         bestScoresList.Reverse(); // ベストスコアを降順に並び替える
 
@@ -205,8 +250,12 @@ public class GameManager : MonoBehaviour
         }
 
         /* ベストスコアを保存する */
-        bestScores.bestScores[stageNum - 1] = bestScoresList; // 元データを更新 0-indexed
-        SaveAndLoadManager.SaveData<BestScoresData>(BESTSCOREKEY, bestScores);
+        bestScoresData.bestScores[stageNum] = bestScoresList; // 元データを更新 0-indexed
+        SaveAndLoadManager.SaveData<BestScoresData>(BESTSCOREKEY, bestScoresData);
+
+        Debug.Log(bestScoresData);
+        Debug.Log(bestScoresData.bestScores);
+        Debug.Log(bestScoresData.bestScores[stageNum]);
     }
 
     int CalcScore(float battery)
@@ -222,18 +271,33 @@ public class GameManager : MonoBehaviour
         UpdateReachStage(stageNum); // ステージクリア状況を更新する
         var key = REACHSTAGEKEY;
         Debug.Log("Test2: " + key); // キーを表示
-        int loadData = SaveAndLoadManager.LoadData<int>(REACHSTAGEKEY); // ステージクリア状況を読み込む
-        Debug.Log("Test: " + loadData); // ステージクリア状況を表示
+        ReachStageData loadData = SaveAndLoadManager.LoadData<ReachStageData>(REACHSTAGEKEY); // ステージクリア状況を読み込む
+        Debug.Log("Test: " + loadData.reachStage); // ステージクリア状況を表示
     }
 
     public void TestBestScores()
     {
-        int stageNum = 1;
+        int stageNum = testStage;
         int score = CalcScore(testScore); // スコアを計算する
         UpdateBestScores(stageNum, score); // ベストスコアを更新する
 
-        string key = BESTSCOREKEY + stageNum;
-        List<int> bestScores = SaveAndLoadManager.LoadData<List<int>>(key); // ベストスコアを読み込む
-        Debug.Log(String.Join(",", bestScores)); // ベストスコアを表示
+        BestScoresData bestScoresData = SaveAndLoadManager.LoadData<BestScoresData>(BESTSCOREKEY); // ベストスコアを読み込む
+        Debug.Log(bestScoresData);
+        Debug.Log(bestScoresData.bestScores);
+        Debug.Log(bestScoresData.bestScores[stageNum]);
+
+        if(bestScoresData.bestScores.ContainsKey(stageNum))
+        {
+            Debug.Log(String.Join(",", bestScoresData.bestScores[stageNum])); // ベストスコアを表示
+        }
+        else
+        {
+            Debug.Log("ベストスコアが存在しません");
+        }
+    }
+
+    public void TestDeleteAll()
+    {
+        PlayerPrefs.DeleteAll(); // 全てのデータを削除する
     }
 }
