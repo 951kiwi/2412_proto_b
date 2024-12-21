@@ -36,8 +36,8 @@ public class StageManager : MonoBehaviour
     void Update()
     {
 
-        Color camera = new Color(Mathf.Sin(Time.time), 0.0f, 0.0f, 1.0f);
-        ChangelightStage(camera);
+        //Color camera = new Color(Mathf.Sin(Time.time), 0.0f, 0.0f, 1.0f);
+        //ChangelightStage(camera);
     }
 
     public void ChangelightStage(Color color)

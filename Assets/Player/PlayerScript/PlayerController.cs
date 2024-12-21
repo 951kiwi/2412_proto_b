@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.O) && isPlayerTest)
+        {
+            PlayerGameOver(isControllable);
+        }
         if(!isControllable)
         {
             return;
@@ -130,20 +134,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float Damage_value = 10f;
     [SerializeField] private float DamageCoolTime = 1f;
 
+    [SerializeField] SEManager _seManager;
+
     private bool isDamageValid = true;
 
     void OnCollisionStay2D(Collision2D collision)
     {
+        if(!isDamageValid) return;
+        if(!isControllable) return;
         foreach(string tag in DamegeTags)
         {
             if(collision.gameObject.tag == tag)
             {
-                if(isDamageValid)
-                {
-                    if(_lightManager != null) _lightManager.DoDamageBattery(Damage_value);
-                    isDamageValid = false;
-                    StartCoroutine(DamageCool());
-                }
+                if(_lightManager != null) _lightManager.DoDamageBattery(Damage_value);
+                if(_seManager != null) _seManager.Play("Damage");
+                isDamageValid = false;
+                StartCoroutine(DamageCool());
             }
         }
     }
@@ -155,5 +161,11 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isDamaged", false);
         yield return new WaitForSeconds(DamageCoolTime/2f);
         isDamageValid = true;
+    }
+
+    public void PlayerGameOver(bool isGameOver = true)
+    {
+        isControllable = !isGameOver;
+        anim.SetBool("isGameOver", isGameOver);
     }
 }

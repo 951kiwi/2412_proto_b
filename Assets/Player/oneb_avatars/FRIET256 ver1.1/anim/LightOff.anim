@@ -33,7 +33,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Emission2ndColor.r
+    attribute: material._EmissionColor.r
     path: body
     classID: 137
     script: {fileID: 0}
@@ -54,7 +54,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Emission2ndColor.g
+    attribute: material._EmissionColor.g
     path: body
     classID: 137
     script: {fileID: 0}
@@ -75,7 +75,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Emission2ndColor.b
+    attribute: material._EmissionColor.b
     path: body
     classID: 137
     script: {fileID: 0}
@@ -96,7 +96,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Emission2ndColor.a
+    attribute: material._EmissionColor.a
     path: body
     classID: 137
     script: {fileID: 0}
@@ -183,7 +183,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Emission2ndColor.r
+    attribute: material._EmissionColor.r
     path: body
     classID: 137
     script: {fileID: 0}
@@ -204,7 +204,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Emission2ndColor.g
+    attribute: material._EmissionColor.g
     path: body
     classID: 137
     script: {fileID: 0}
@@ -225,7 +225,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Emission2ndColor.b
+    attribute: material._EmissionColor.b
     path: body
     classID: 137
     script: {fileID: 0}
@@ -246,7 +246,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Emission2ndColor.a
+    attribute: material._EmissionColor.a
     path: body
     classID: 137
     script: {fileID: 0}
