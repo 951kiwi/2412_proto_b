@@ -114,6 +114,7 @@ MonoBehaviour:
   JumpKey: 32
   DamegeTags:
   - Needle
+  - Enemy
   isControllable: 1
   speed: 5
   jumpForce: 8
@@ -142,7 +143,7 @@ GameObject:
   - component: {fileID: 1464693206677861027}
   m_Layer: 0
   m_Name: G_Collider
-  m_TagString: Untagged
+  m_TagString: PlayerReg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

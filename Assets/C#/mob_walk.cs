@@ -9,6 +9,7 @@ public class mob_walk : MonoBehaviour
 
     private bool rightTleftF = false; // 移動方向（右:true, 左:false）
     private bool isMove = false;     // 行動状態
+    private bool isdead = false;
     private mob_value data;          // 壁の接触判定データ
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -28,6 +29,20 @@ public class mob_walk : MonoBehaviour
 
     void FixedUpdate()
     {
+        //頭の判定処理がtrueのとき殺す
+        if (data.isHead)
+        {
+            isdead = true;
+            this.GetComponent<Collider2D>().enabled = false;
+            rb.velocity = new Vector2(2f, 4f);
+            Destroy(gameObject, 5f);
+        }
+        if (isdead)
+        {
+            transform.Rotate(new Vector3(0, 0, 5));
+            return;
+        }
+
         // 画面内に入るまで動きを制限
         if (!isMove)
         {
@@ -41,7 +56,7 @@ public class mob_walk : MonoBehaviour
             return;
         }
         // 壁に接触した場合、移動方向を反転
-        if (data.isWall)
+        if (data.isWall && !isdead)
         {
             ReverseDirection();
             return;
