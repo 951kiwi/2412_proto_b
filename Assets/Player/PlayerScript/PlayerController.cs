@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.O) && isPlayerTest)
+        {
+            PlayerGameOver(isControllable);
+        }
         if(!isControllable)
         {
             return;
@@ -59,11 +63,6 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKey(LightSwitchKey) || isPlayerTest)
         {
             LightChanger(LightStrength);
-        }
-
-        if(Input.GetKey(KeyCode.O) && isPlayerTest)
-        {
-            PlayerGameOver();
         }
 
         if(input_horizontal != 0)//Move
@@ -164,9 +163,9 @@ public class PlayerController : MonoBehaviour
         isDamageValid = true;
     }
 
-    public void PlayerGameOver()
+    public void PlayerGameOver(bool isGameOver = true)
     {
-        isControllable = false;
-        anim.SetBool("isGameOver", true);
+        isControllable = !isGameOver;
+        anim.SetBool("isGameOver", isGameOver);
     }
 }
