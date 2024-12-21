@@ -47,7 +47,7 @@ namespace OutGame
             var time = 0f;
             while (time < _duration)
             {
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime; // Time.timescaleが0の時にも正常に動作するようにunscaledDeltaTimeを使用
                 var alpha = Mathf.Lerp(startAlpha, endAlpha, time / _duration);
                 _panel.color = new Color(color.r, color.g, color.b, alpha);
                 yield return null;

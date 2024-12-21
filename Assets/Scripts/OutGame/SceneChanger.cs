@@ -43,7 +43,7 @@ namespace OutGame
         private IEnumerator FadeCoroutine(string sceneName)
         {
             _fade.FadeOut();
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSecondsRealtime(0.8f); // Time.timescaleが0の時にも正常に動作するようにRealtimeを使用
             SceneManager.LoadScene(sceneName);
         }
     }
