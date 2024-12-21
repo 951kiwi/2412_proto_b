@@ -207,9 +207,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6749942070746007848}
-  Tags:
+  GroundTags:
   - Ground
+  - MoveGround
   - Needle
+  MoveGroundTags:
+  - MoveGround
 --- !u!1001 &324308592893714587
 PrefabInstance:
   m_ObjectHideFlags: 0
