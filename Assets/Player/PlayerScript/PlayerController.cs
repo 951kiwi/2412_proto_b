@@ -86,9 +86,13 @@ public class PlayerController : MonoBehaviour
         rb.velocity = move;
         SaveLastLandPos();
 
-        if(this.transform.position.y < RespawnHeight && isPlayerTest)//Respawn
+        if(isPlayerTest)//Respawn
         {
-            this.transform.position = lastLandPos;
+            if(this.transform.position.y < RespawnHeight)
+            {
+                this.transform.position = lastLandPos;
+                PlayerDamage();
+            }
         }
     }
 
@@ -146,12 +150,17 @@ public class PlayerController : MonoBehaviour
         {
             if(collision.gameObject.tag == tag)
             {
-                if(_lightManager != null) _lightManager.DoDamageBattery(Damage_value);
-                if(_seManager != null) _seManager.Play("Damage");
-                isDamageValid = false;
-                StartCoroutine(DamageCool());
+                PlayerDamage();
             }
         }
+    }
+
+    public void PlayerDamage(bool isDamaged = true)
+    {
+        if(_lightManager != null && isDamaged) _lightManager.DoDamageBattery(Damage_value);
+        if(_seManager != null) _seManager.Play("Damage");
+        isDamageValid = false;
+        StartCoroutine(DamageCool());
     }
 
     IEnumerator DamageCool()
