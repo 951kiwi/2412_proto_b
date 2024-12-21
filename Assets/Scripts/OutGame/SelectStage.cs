@@ -12,6 +12,8 @@ namespace OutGame
         [SerializeField, Header("各ステージシーンの名前")]
         private List<string> _stageNames;
 
+        [SerializeField, Header("シーン遷移キー")] private KeyCode _keyCode = KeyCode.Space;
+
         private int _num;
 
         /// <summary> 選択中のインデックス番号 _num:0で第一ステージに該当 </summary>
@@ -20,7 +22,7 @@ namespace OutGame
         private void Update()
         {
             NumChange();
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(_keyCode))
             {
                 SceneChanger.Instance.FadeChange(_stageNames[_num]);
             }

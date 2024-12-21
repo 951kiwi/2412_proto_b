@@ -3,16 +3,18 @@ using UnityEngine;
 namespace OutGame
 {
     /// <summary>
-    /// エンターキー入力でステージ選択シーンへ
+    /// キー入力で特定のシーンへ遷移
     /// </summary>
-    public class GameStart : MonoBehaviour
+    public class Transition : MonoBehaviour
     {
         [SerializeField, Header("ステージ選択シーンの名前")]
         private string _sceneName;
 
+        [SerializeField, Header("シーン遷移キー")] private KeyCode _keyCode = KeyCode.Space;
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(_keyCode))
             {
                 SceneChanger.Instance.FadeChange(_sceneName);
             }
