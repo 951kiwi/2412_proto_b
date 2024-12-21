@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Serializable]
-    struct ReachStageData
+    public struct ReachStageData
     {
         public int reachStage; // ステージクリア状況
     }
