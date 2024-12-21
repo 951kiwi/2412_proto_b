@@ -123,6 +123,8 @@ MonoBehaviour:
   isPlayerTest: 0
   anim: {fileID: 3169583266328849701}
   LightStrength: 0
+  StepEnemyForce: 5
+  isMoveGround: 0
   _lightManager: {fileID: 0}
   Damage_value: 10
   DamageCoolTime: 1
@@ -234,6 +236,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 171.59
       objectReference: {fileID: 0}
+    - target: {fileID: 1249313975667583830, guid: 772a1fe9d459e4d4c8e79d95c19b53e0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 019b9f8c186fcba4ba71a72189cf7aff, type: 2}
     - target: {fileID: 3421807464553958846, guid: 772a1fe9d459e4d4c8e79d95c19b53e0, type: 3}
       propertyPath: m_Enabled
       value: 1

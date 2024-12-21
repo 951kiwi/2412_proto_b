@@ -866,10 +866,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6038384309855933534, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8822720799809716394, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
       propertyPath: lightManager
       value: 
@@ -877,10 +873,6 @@ PrefabInstance:
     - target: {fileID: 8822720799809716394, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
       propertyPath: playerDieAnimTime
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8893075101287837634, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
