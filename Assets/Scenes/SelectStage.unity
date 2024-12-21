@@ -271,7 +271,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "AD/\u2190\u2192: \u30B9\u30C6\u30FC\u30B8\u5909\u66F4\u3000Space\uFF1A\u30B9\u30C6\u30FC\u30B8\u6C7A\u5B9A"
+  m_Text: "AD: Change\u3000Space:Select"
 --- !u!222 &251341377
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -415,8 +415,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stageNames:
   - Stage1
-  - TestStage1
-  - TestStateA
+  - Stage2
+  - Stage3
   _keyCode: 32
 --- !u!1 &836837791
 GameObject:
