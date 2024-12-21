@@ -77,8 +77,10 @@ public class LightManager : MonoBehaviour
     /// <summary>
     /// fadeINする 黒→白
     /// </summary>
+
+
     void FadeIn(){
-        float up = 0.01f;
+        float up = 2.5f * Time.deltaTime;
         if(camera.backgroundColor.r < 1){//白になったら処理停止
             camera.backgroundColor =new Color(
             camera.backgroundColor.r + up,
@@ -91,7 +93,7 @@ public class LightManager : MonoBehaviour
         
     }
     void FadeOut(){
-        float up = -0.01f;
+        float up = -2.5f * Time.deltaTime;
         if(camera.backgroundColor.r > 0){//黒になったら処理停止
         camera.backgroundColor =new Color(
             camera.backgroundColor.r + up,
