@@ -213,9 +213,10 @@ public class GameManager : MonoBehaviour
         int stageScore = CalcScore(lightManager.getBattery()); // バッテリー残量からスコアを計算する
 
         UpdateReachStage(stageNum); // ステージクリア状況を更新する
-        /* 一旦データ保存は保留 testでうまく動いたら有効にする
+        
+        /* テストのためにコメントアウト削除 */
         UpdateBestScores(stageNum, stageScore); // ベストスコアを更新する
-        */
+        
 
         ResultDataStore.Score = stageScore; // リザルトシーンのためにスコアを保存する
         Debug.Log("スコア: " + stageScore); // スコアを表示
