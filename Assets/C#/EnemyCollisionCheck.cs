@@ -36,7 +36,6 @@ public class EnemyCollisionCheck : MonoBehaviour
         }
         else if (part == SampleEnum.Head){
             if (collision.tag == playerTag){
-                Debug.Log(collision.tag);
                 isHead = true;
             }
         }
