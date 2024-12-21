@@ -11,19 +11,22 @@ public class EnemyCollisionCheck : MonoBehaviour
     public enum SampleEnum
     {
         None,
-        Wall,
         Head,
+        Wall,
+        Ground,
     }
-
     [HideInInspector] public bool isWall = false;
     [HideInInspector] public bool isHead = false;
     [SerializeField] private SampleEnum part;
-
+    private mob_value data;
     private string groundTag = "Ground";
     private string playerTag = "PlayerReg";
     private string enemyTag = "Enemy";
 
 
+    void Start(){
+        data = this.transform.parent.gameObject.GetComponent<mob_value>();
+    }    
     #region//接触判定
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,12 +34,17 @@ public class EnemyCollisionCheck : MonoBehaviour
         {
             if (collision.tag == groundTag || collision.tag == enemyTag)
             {
-                isWall = true;
+                data.isWall = true;
             }
         }
         else if (part == SampleEnum.Head){
             if (collision.tag == playerTag){
-                isHead = true;
+                data.isHead = true;
+            }
+        }
+        else if(part == SampleEnum.Ground){
+            if (collision.tag == groundTag){
+                data.isGround = true;
             }
         }
     }
@@ -47,12 +55,17 @@ public class EnemyCollisionCheck : MonoBehaviour
         {
             if (collision.tag == groundTag || collision.tag == enemyTag)
             {
-                isWall = false;
+                data.isWall = false;
             }
         }
         else if (part == SampleEnum.Head){
             if (collision.tag == playerTag){
-                isHead = false;
+                data.isHead = false;
+            }
+        }
+        else if(part == SampleEnum.Ground){
+            if (collision.tag == groundTag){
+                data.isGround = false;
             }
         }
     }
