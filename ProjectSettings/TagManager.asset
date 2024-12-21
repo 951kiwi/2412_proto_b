@@ -8,6 +8,7 @@ TagManager:
   - Goal
   - Needle
   - MoveGround
+  - Enemy
   layers:
   - Default
   - TransparentFX
