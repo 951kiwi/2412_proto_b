@@ -416,7 +416,7 @@ MonoBehaviour:
   _stageNames:
   - Stage1
   - TestStage1
-  - TestStateB
+  - TestStateA
   _keyCode: 32
 --- !u!1 &1073917872
 GameObject:
