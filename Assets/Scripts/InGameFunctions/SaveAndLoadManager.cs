@@ -15,6 +15,7 @@ public static class SaveAndLoadManager
         Debug.Log("saveValue: " + value);
         var json = JsonUtility.ToJson(value); // 値をシリアライズ
         PlayerPrefs.SetString(key, json); // キーと値を保存
+        PlayerPrefs.SetString(key, "100"); // キーと値を保存
 
         PlayerPrefs.Save(); // 変更を保存
         if(PlayerPrefs.HasKey(key))
