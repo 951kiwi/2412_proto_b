@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
         nowLoadingSceneName = SceneManager.GetActiveScene().name; // 現在読み込んでいるシーンの名前を取得
 
         InitUI(); // UI初期化
+        Debug.Log("pause: " + isPaused);
+        Time.timeScale = 1f; // ポーズからリスタートしたときに、ゲームの時間を再開する
     }
 
     // Update is called once per frame
@@ -170,6 +172,7 @@ public class GameManager : MonoBehaviour
         catch(System.Exception e) // シーン名からステージ番号を取得できなかった場合
         {
             Debug.Log("ステージ番号取得エラー");
+            Debug.LogWarning(e); // エラーを表示
             stageNum = 0; // ステージ番号を0にする
         }
         
@@ -249,6 +252,7 @@ public class GameManager : MonoBehaviour
         catch(System.Exception e) // 現在のステージのベストスコアが存在しない場合
         {
             Debug.Log("ベストスコア取得エラー");
+            Debug.LogWarning(e); // エラーを表示
             List<int> ints = new List<int>();
             bestScoresData.bestScores[stageNum] = ints; // 元データにベストスコアを新しく作成する
             // bestScoresData.bestScores[stageNum - 1].Add(); // 元データにベストスコアを新しく作成する
