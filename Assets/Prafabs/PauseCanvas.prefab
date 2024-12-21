@@ -214,7 +214,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Enter\u3067\u30EA\u30C8\u30E9\u30A4"
+  m_Text: "Enter\uFF1ARetry"
 --- !u!1 &3993959564099589423
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30DD\u30FC\u30BA"
+  m_Text: Pause
 --- !u!1 &4243266916925027104
 GameObject:
   m_ObjectHideFlags: 0
