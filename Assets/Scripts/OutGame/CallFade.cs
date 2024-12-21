@@ -34,11 +34,11 @@ namespace OutGame
                 _isFade = !_isFade;
                 if (_isFade)
                 {
-                    _fade.FadeOut();
+                    _fade.FadeIn();
                 }
                 else
                 {
-                    _fade.FadeIn();
+                    _fade.FadeOut();
                 }
             }
         }
