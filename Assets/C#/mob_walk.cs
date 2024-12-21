@@ -2,84 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class mob_wolk : MonoBehaviour
+public class mob_walk : MonoBehaviour
 {
-    [SerializeField] private float jump = 5f;
-    [SerializeField] private float speed = 1f;
-    [Header("接触判定")] public EnemyCollisionCheck checkCollision;
-    [Header("接触判定あたま")] public EnemyCollisionCheck HeadcheckCollision;
+    [SerializeField] private float speed = 1f; // 移動速度
     [Header("画面外でも行動する")] public bool nonVisibleAct = false;
-    [SerializeField]  bool rightTleftF = false;
-    bool ismove = false;
-    bool isdead = false;
+
+    private bool rightTleftF = false; // 移動方向（右:true, 左:false）
+    private bool isMove = false;     // 行動状態
+    private mob_value data;          // 壁の接触判定データ
     private Rigidbody2D rb;
-    private SpriteRenderer sr = null;
-    // Start is called before the first frame update
+    private SpriteRenderer sr;
+
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        data = GetComponent<mob_value>();
 
+        // 画面外でも動作する場合の初期化
         if (nonVisibleAct)
         {
-            ismove = true;
+            isMove = true;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (!ismove)
+        // 画面内に入るまで動きを制限
+        if (!isMove)
         {
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            if (sr.isVisible)
+            rb.constraints = RigidbodyConstraints2D.FreezeAll; // 動きを制限
+            if (sr.isVisible) // 画面に表示されたとき
             {
-                ismove = true;
+                isMove = true;
                 rb.constraints = RigidbodyConstraints2D.None;
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-                rb.AddForce(new Vector2(0, -2f));
+                rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 回転を固定
             }
+            return;
         }
-
-        if (isdead)
+        // 壁に接触した場合、移動方向を反転
+        if (data.isWall)
         {
-
-            transform.Rotate(new Vector3(0, 0, 5));
-
+            ReverseDirection();
+            return;
         }
-        if (HeadcheckCollision.isHead)
-        {
-            isdead = true;
-            this.GetComponent<Collider2D>().enabled = false;
-            rb.velocity = new Vector2(2f, 4f);
-            Destroy(rb, 5f);
-        }
+
+        // 移動処理
+        float moveDirection = rightTleftF ? 1 : -1; // 右移動なら1、左移動なら-1
+        rb.velocity = new Vector2(speed * moveDirection, rb.velocity.y);
+
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    private void ReverseDirection()
     {
-        if (checkCollision.isWall)
-        {
-            rightTleftF = !rightTleftF;
-        }
+        // 移動方向を反転し、スタック防止のために軽く押し戻す
+        rightTleftF = !rightTleftF;
+        data.rightTleftF = rightTleftF;
 
-
-        if (!isdead && ismove)
-        {
-            if (rightTleftF)
-            {
-                Vector2 vector2 = new Vector2(speed, jump);
-                rb.velocity = vector2;
-            }
-            else
-            {
-                Vector2 vector2 = new Vector2(-speed, jump);
-                rb.velocity = vector2;
-            }
-        }
-
-
-
+        // 壁から少し離すための補正
+        float pushBack = rightTleftF ? 0.1f : -0.1f;
+        rb.position = new Vector2(rb.position.x + pushBack, rb.position.y);
     }
-
 }
