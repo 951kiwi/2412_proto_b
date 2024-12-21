@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public bool is_grounded;
     private float groundTime;
     public bool is_jumping;
-    Vector3 move = Vector2.zero;
+    Vector2 move = Vector2.zero;
     Vector3 velocity = Vector2.zero;
     public Vector3 lastLandPos = Vector3.zero;
     private Vector3 temp_lastLandPos = Vector3.zero;
@@ -94,6 +94,15 @@ public class PlayerController : MonoBehaviour
                 PlayerDamage();
             }
         }
+    }
+
+    [SerializeField] private float StepEnemyForce = 5f;
+
+    public void StepEnemy()
+    {
+        move.y = StepEnemyForce;
+        move.x = rb.velocity.x;
+        rb.velocity = move;
     }
 
     void Jump()

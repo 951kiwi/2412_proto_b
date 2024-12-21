@@ -414,9 +414,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stageNames:
+  - Stage1
   - TestStage1
-  - TestStateB
-  - TestStateC
+  - TestStateA
   _keyCode: 32
 --- !u!1 &1073917872
 GameObject:
