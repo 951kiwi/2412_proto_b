@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isDamageValid = true;
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         foreach(string tag in DamegeTags)
         {

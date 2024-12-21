@@ -1039,6 +1039,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2117644831890071977, guid: a499d875a2cbe1b40a8959dcc4f998c3, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3169583266328849701, guid: a499d875a2cbe1b40a8959dcc4f998c3, type: 3}
       propertyPath: m_WarningMessage
       value: "\nBinding warning: Some generic clip(s) animate transforms that are

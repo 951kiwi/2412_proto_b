@@ -5,7 +5,9 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour
 {
     [SerializeField] PlayerController player;
-    [SerializeField] private string[] Tags;
+    [SerializeField] private string[] GroundTags;
+
+    [SerializeField] private string[] MoveGroundTags;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class GroundChecker : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        foreach(string tag in Tags)
+        foreach(string tag in GroundTags)
         {
             if(collision.gameObject.tag == tag)
             {
@@ -28,16 +30,34 @@ public class GroundChecker : MonoBehaviour
                 player.is_jumping = true;
             }
         }
+        foreach(string tag in MoveGroundTags)
+        {
+            if(collision.gameObject.tag == tag)
+            {
+                player.transform.parent = null;
+            }
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        foreach(string tag in Tags)
+        foreach(string tag in GroundTags)
         {
             if(collision.gameObject.tag == tag)
             {
                 player.is_grounded = true;
                 player.is_jumping = false;
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        foreach(string tag in MoveGroundTags)
+        {
+            if(collision.gameObject.tag == tag)
+            {
+                player.transform.parent = collision.gameObject.transform;
             }
         }
     }
