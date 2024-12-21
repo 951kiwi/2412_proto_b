@@ -7,7 +7,19 @@ using UnityEngine.SceneManagement;
 /* Canvas表示とゲームマネージャーの2つの責任を持ってしまっている気がする? */
 public class GameManager : MonoBehaviour
 {
+    [Serializable]
+    struct ReachStageData
+    {
+        public int reachStage; // ステージクリア状況
+    }
+
+    [Serializable]
+    struct BestScoresData
+    {
+        public List<List<int>> bestScores; // ベストスコア
+    }
     public float testScore; // テスト用スコア
+    public int testStage; // テスト用ステージ番号
 
     [SerializeField] Transform player; // プレイヤーの位置情報
     [SerializeField] GameObject gameOverUI; // ゲームオーバーのUI
@@ -158,14 +170,16 @@ public class GameManager : MonoBehaviour
     void UpdateReachStage(int stageNum)
     {
         /* ステージクリア状況を読み込む */
-        int reachStage = SaveAndLoadManager.LoadData<int>(REACHSTAGEKEY);
-        Debug.Log("reachStage: " + reachStage);
+        ReachStageData reachStageData = SaveAndLoadManager.LoadData<ReachStageData>(REACHSTAGEKEY);
 
+        int reachStage = reachStageData.reachStage; // ステージクリア状況を取得
+        Debug.Log("reachStage: " + reachStage); // ステージクリア状況を表示
         /* 現在のステージがステージクリア状況よりも大きい場合 */
         if(stageNum > reachStage)
         {
             /* ステージクリア状況を更新する */
-            SaveAndLoadManager.SaveData<int>(REACHSTAGEKEY, stageNum);
+            reachStageData.reachStage = stageNum;
+            SaveAndLoadManager.SaveData<ReachStageData>(REACHSTAGEKEY, reachStageData); // ステージクリア状況を保存する
             Debug.Log(stageNum);
         }
     }
@@ -173,24 +187,26 @@ public class GameManager : MonoBehaviour
     void UpdateBestScores(int stageNum, int score)
     {
         /* ベストスコアを読み込む */
-        List<int> bestScores = SaveAndLoadManager.LoadData<List<int>>("BestScores" + stageNum);
-        if(bestScores == null) // ベストスコアが存在しない場合
+        BestScoresData bestScores = SaveAndLoadManager.LoadData<BestScoresData>(BESTSCOREKEY);
+        List<int> bestScoresList = bestScores.bestScores[stageNum - 1]; // 現在のステージのベストスコアを取得 0-indexed
+
+        if(bestScoresList == null) // ベストスコアが存在しない場合
         {
-            bestScores = new List<int>(); // ベストスコアを新しく作成する
+            bestScoresList = new List<int>(); // ベストスコアを新しく作成する
         }
 
-        bestScores.Add(score); // ベストスコアに現在のスコア(バッテリー残量に依存)を追加
-        bestScores.Reverse(); // ベストスコアを降順に並び替える
+        bestScoresList.Add(score); // ベストスコアに現在のスコア(バッテリー残量に依存)を追加
+        bestScoresList.Reverse(); // ベストスコアを降順に並び替える
 
         /* ベストスコアの数が上限を超えている場合 */
-        if(bestScores.Count > BESTSCORELIMIT)
+        if(bestScoresList.Count > BESTSCORELIMIT)
         {
-            bestScores.RemoveAt(bestScores.Count - 1); // ベストスコアの最後の要素(ランク範囲外)を削除
+            bestScoresList.RemoveAt(bestScoresList.Count - 1); // ベストスコアの最後の要素(ランク範囲外)を削除
         }
 
         /* ベストスコアを保存する */
-        string key = BESTSCOREKEY + stageNum;
-        SaveAndLoadManager.SaveData<List<int>>(key, bestScores);
+        bestScores.bestScores[stageNum - 1] = bestScoresList; // 元データを更新 0-indexed
+        SaveAndLoadManager.SaveData<BestScoresData>(BESTSCOREKEY, bestScores);
     }
 
     int CalcScore(float battery)
@@ -202,7 +218,7 @@ public class GameManager : MonoBehaviour
 
     public void TestReachStage()
     {
-        int stageNum = 1;
+        int stageNum = testStage; // テスト用ステージ番号
         UpdateReachStage(stageNum); // ステージクリア状況を更新する
         var key = REACHSTAGEKEY;
         Debug.Log("Test2: " + key); // キーを表示

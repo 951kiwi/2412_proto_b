@@ -1356,6 +1356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4932cdc0e106af44d914b89ae8bed70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_whiteTiles: []
+  m_blackTiles: []
   m_whiteObjects: []
   m_blackObjects: []
 --- !u!4 &1429703134
@@ -1898,6 +1900,14 @@ PrefabInstance:
       propertyPath: pauseUI
       value: 
       objectReference: {fileID: 1289777065}
+    - target: {fileID: 8822720799809716394, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
+      propertyPath: testScore
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8822720799809716394, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
+      propertyPath: testStage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8822720799809716394, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
       propertyPath: gameOverUI
       value: 
