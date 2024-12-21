@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using OutGame;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     public float testScore; // テスト用スコア
     public int testStage; // テスト用ステージ番号
 
+    public float playerDieAnimTime = 2.0f; // プレイヤーが死んだときのアニメーション時間
+
     private Transform player; // プレイヤーの位置情報
     [SerializeField] GameObject gameOverUI; // ゲームオーバーのUI
     [SerializeField] GameObject pauseUI; // 一時停止のUI
@@ -33,6 +36,10 @@ public class GameManager : MonoBehaviour
 
     /* シーンチェンジで使うコンポーネント */
     [SerializeField] SceneChanger sceneChanger;
+
+    /* 音を鳴らすために必要なコンポーネント */
+    private SEManager seManager;
+    private BGMManager bgmManager;
 
     [SerializeField] float fallBorder = -10f; // 落下判定の境界値
     [SerializeField] float fallDamage = 10f; // 落下ダメージ
@@ -60,6 +67,12 @@ public class GameManager : MonoBehaviour
         /* 必要なコンポーネントを取得 */
         player = GameObject.Find("Player").transform;
         playerController = player.GetComponent<PlayerController>(); // プレイヤーコントローラーを取得
+
+        seManager = GameObject.Find("SEManager").GetComponent<SEManager>(); // SEマネージャーを取得
+        bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>(); // BGMマネージャーを取得
+
+        /* bgmを流す */
+        bgmManager.Play("InGameBGM1");
     }
 
     // Update is called once per frame
@@ -77,8 +90,8 @@ public class GameManager : MonoBehaviour
             RestartGame();
         }
 
-        /* Escキーが押されたら */
-        if(Input.GetKeyDown(KeyCode.Escape))
+        /* ゲームオーバーじゃない状態でEscキーが押されたら */
+        if(Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
         {
             /* ゲームが一時停止されているかどうかで処理を分岐 */
             if(isPaused)
@@ -116,14 +129,31 @@ public class GameManager : MonoBehaviour
         
         /* プレイヤーのHPを減らす */
         lightManager.DoDamageBattery(fallDamage);
-        /* 音を鳴らす */ /* あとで修正 */
+        /* 音を鳴らす */
+        seManager.Play("Damage");
+
+        /* プレイヤーのアニメーションを再生する */
+        playerController.PlayerDamage(false);   
     }
 
     /* ゲームオーバー状態にする */
-    void GameOver()
+    async void GameOver()
     {
         Debug.Log("ゲームオーバー");
         isGameOver = true;
+
+        /* ライトコンポーネントを停止させる */
+        lightManager.enabled = false;
+
+        /* プレイヤーのアニメーションを再生する */
+        playerController.PlayerGameOver(true);
+        /* プレイヤーのアニメーションが終わるまで待つ */
+        await WaitAsync(playerDieAnimTime);
+
+        /* プレイヤーのコンポーネントを停止する */
+        playerController.enabled = false;
+        Time.timeScale = 0; // ゲームの時間を停止する
+
         /* ゲームオーバーのUIを表示する */
         gameOverUI.SetActive(true);
     }
@@ -323,5 +353,12 @@ public class GameManager : MonoBehaviour
     public void TestDeleteAll()
     {
         PlayerPrefs.DeleteAll(); // 全てのデータを削除する
+    }
+
+    /* 一定時間待つタスク(プレイヤーのアニメーション待ちに使う) */
+    private async Task WaitAsync(float waitTime)
+    {
+        int waitTimems = (int)(waitTime * 1000); // 秒をミリ秒に変換
+        await Task.Delay(waitTimems); // 一定時間待つ
     }
 }
