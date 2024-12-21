@@ -5,7 +5,7 @@ using UnityEngine;
 public class mob : MonoBehaviour
 {
     private Rigidbody2D rb;
-    float beforePosY = 0;
+    public float beforePosY = 0;
     // Start is called before the first frame update
     void Start()
     {
