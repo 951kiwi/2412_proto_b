@@ -123,8 +123,8 @@ MonoBehaviour:
   isPlayerTest: 0
   anim: {fileID: 3169583266328849701}
   LightStrength: 0
-  RespawnHeight: -5
-  lastLandLerp: 1.58
+  _lightManager: {fileID: 0}
+  Damage_value: 10
   DamageCoolTime: 1
 --- !u!1 &2601166755470766110
 GameObject:
@@ -191,8 +191,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 0.5}
+  m_Offset: {x: 0, y: -0.0751285}
+  m_Size: {x: 0.49999994, y: 0.65025705}
   m_Direction: 0
 --- !u!114 &1464693206677861027
 MonoBehaviour:
