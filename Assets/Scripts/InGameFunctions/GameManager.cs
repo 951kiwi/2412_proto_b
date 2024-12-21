@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Serializable]
-    struct ReachStageData
+    public struct ReachStageData
     {
         public int reachStage; // ステージクリア状況
     }
@@ -212,8 +212,8 @@ public class GameManager : MonoBehaviour
         
         int stageScore = CalcScore(lightManager.getBattery()); // バッテリー残量からスコアを計算する
 
-        /* 一旦データ保存は保留
         UpdateReachStage(stageNum); // ステージクリア状況を更新する
+        /* 一旦データ保存は保留 testでうまく動いたら有効にする
         UpdateBestScores(stageNum, stageScore); // ベストスコアを更新する
         */
 

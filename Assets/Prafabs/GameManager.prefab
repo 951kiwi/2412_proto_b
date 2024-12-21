@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testScore: 0
   testStage: 0
-  playerDieAnimTime: 5
+  playerDieAnimTime: 4
   gameOverUI: {fileID: 6038384309855933534}
   pauseUI: {fileID: 8893075101287837634}
   lightManager: {fileID: 0}
