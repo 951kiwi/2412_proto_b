@@ -37,7 +37,9 @@ public class LightManager : MonoBehaviour
         stageManager.ChangelightStage(camera.backgroundColor);
         
     }
-
+    private void ResetBattery(){
+        battery = 100f;
+    }
     /// <summary>
     /// ifがtrueのときライトを消費
     /// ifがfalseのときライトを停止
