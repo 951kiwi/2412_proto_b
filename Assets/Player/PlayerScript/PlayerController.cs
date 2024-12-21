@@ -110,8 +110,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private float lastLandLerp = 1.58f;
+    public bool isMoveGround = false;
     void SaveLastLandPos()
     {
+        if(isMoveGround) return;
         if(!was_grounded && is_grounded)
         {
             groundTime = 0f;
