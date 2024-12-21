@@ -14,12 +14,18 @@ using UnityEngine.Tilemaps;
 
 public class StageManager : MonoBehaviour
 {
-    // 各オブジェクトごとのタイルマップ
-    [Header("白いステージオブジェクト"),SerializeField]
-    List<Tilemap> m_whiteObjects;
+    // 各色のタイルマップ
+    [SerializeField]
+    List<Tilemap> m_whiteTiles;
+    [SerializeField]
+    List<Tilemap> m_blackTiles;
 
-    [Header("黒いステージオブジェクト"),SerializeField]
-    List<Tilemap> m_blackObjects;
+    // 各色のオブジェクト
+    [SerializeField]
+    List<GameObject> m_whiteObjects;
+    [SerializeField]
+    List<GameObject> m_blackObjects;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,13 +45,23 @@ public class StageManager : MonoBehaviour
         // 透明度
         float a = color.r;
         // レンダー機能切り替え
+        for (int i = 0; i < m_whiteTiles.Count; i++)
+        {
+            m_whiteTiles[i].color = new Color(1.0f,1.0f,1.0f,1.0f - a);
+        }
+        for (int i = 0; i < m_blackTiles.Count; i++)
+        {
+            m_blackTiles[i].color = new Color(0f, 0f, 0f, a);
+        }
+
+        // レンダー機能切り替え
         for (int i = 0; i < m_whiteObjects.Count; i++)
         {
-            m_whiteObjects[i].color = new Color(1.0f,1.0f,1.0f,1.0f - a);
+            m_whiteObjects[i].GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f - a);
         }
         for (int i = 0; i < m_blackObjects.Count; i++)
         {
-            m_blackObjects[i].color = new Color(0f, 0f, 0f, a);
+            m_blackObjects[i].GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f, a);
         }
     }
 }
