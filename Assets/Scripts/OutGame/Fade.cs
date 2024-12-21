@@ -9,24 +9,32 @@ namespace OutGame
         [SerializeField, Header("パネル")] private Image _panel;
         [SerializeField, Header("かかる時間")] private float _duration = 0.5f;
 
-        [SerializeField, Header("シーン開始時にFadeOutする")]
+        [SerializeField, Header("シーン開始時にFadeInする")]
         private bool _flag;
+
+        [SerializeField, Header("デバッグ中か")] private bool _isDebug;
+
+        private SEManager _seManager;
 
         private void Start()
         {
-            if (_flag) FadeOut();
+            if (_flag) FadeIn();
+            _seManager = FindObjectOfType<SEManager>();
         }
 
         private void Update()
         {
-            // テスト
-            if (Input.GetKeyDown(KeyCode.F))
+            if (_isDebug)
             {
-                FadeIn();
-            }
-            else if (Input.GetKeyDown(KeyCode.J))
-            {
-                FadeOut();
+                // テスト
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    FadeOut();
+                }
+                else if (Input.GetKeyDown(KeyCode.J))
+                {
+                    FadeIn();
+                }
             }
         }
 
@@ -49,17 +57,19 @@ namespace OutGame
         /// <summary>
         /// 暗くなる
         /// </summary>
-        public void FadeIn()
+        public void FadeOut()
         {
             StartCoroutine(FadeImage(0, 1));
+            if (_seManager) _seManager.Play("LightOn");
         }
 
         /// <summary>
         /// 明るくなる
         /// </summary>
-        public void FadeOut()
+        public void FadeIn()
         {
             StartCoroutine(FadeImage(1, 0));
+            if (_seManager) _seManager.Play("LightOn");
         }
     }
 }

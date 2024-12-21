@@ -42,8 +42,8 @@ namespace OutGame
 
         private IEnumerator FadeCoroutine(string sceneName)
         {
-            _fade.FadeIn();
-            yield return new WaitForSeconds(0.5f);
+            _fade.FadeOut();
+            yield return new WaitForSeconds(0.8f);
             SceneManager.LoadScene(sceneName);
         }
     }

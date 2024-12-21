@@ -8,6 +8,7 @@ namespace OutGame
     public class CallFade : MonoBehaviour
     {
         [SerializeField] private Fade _fade;
+        [SerializeField, Header("ライト点灯キー")] private KeyCode _keyCode = KeyCode.Mouse0;
         private bool _isFade;
         private bool _canFade;
         public float _inputCooldown = 2f; // N秒（入力制限時間）
@@ -27,18 +28,18 @@ namespace OutGame
             }
 
             // シフトキーの入力処理
-            if (_canPressShift && Input.GetKeyDown(KeyCode.LeftShift))
+            if (_canPressShift && Input.GetKeyDown(_keyCode))
             {
                 _canPressShift = false; // 入力を無効化
                 _cooldownTimer = _inputCooldown; // クールダウンタイマーをリセット
                 _isFade = !_isFade;
                 if (_isFade)
                 {
-                    _fade.FadeOut();
+                    _fade.FadeIn();
                 }
                 else
                 {
-                    _fade.FadeIn();
+                    _fade.FadeOut();
                 }
             }
         }

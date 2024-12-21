@@ -8,10 +8,11 @@ public class LightManager : MonoBehaviour
 {
     private float battery; //バッテリー変数
     
+    
     private float startMinusBattery = 5f; //ライト点灯した時の最初の加速減り
     private float updateMinusBattery = 0.01f; //ライト点灯時の継続の減り
     private float lowBatteryPercent = 0f; //バッテリーが残り少ない時の点滅
-    private KeyCode lightButton = KeyCode.LeftShift; //ライト点灯用ボタン
+    [SerializeField] private KeyCode lightButton = KeyCode.LeftShift; //ライト点灯用ボタン
 
     private bool startBattery = true; //LightOn()で一回だけ使用するための変数
     private bool isCoroutine = false; //コルーチンが存在するかの確認
@@ -19,8 +20,6 @@ public class LightManager : MonoBehaviour
     private PlayerController playerController;
     public UnityEngine.Camera camera; //カメラ取得(背景色変更用)
 
-    //ここからしたの変数は消す。
-    public TextMeshProUGUI textMeshPro;
 
 
     void Start()
@@ -34,13 +33,13 @@ public class LightManager : MonoBehaviour
 
     void Update()
     {
-        //debug用消す
         LightOn();
-        textMeshPro.text = $"{battery}";
         stageManager.ChangelightStage(camera.backgroundColor);
         
     }
-
+    private void ResetBattery(){
+        battery = 100f;
+    }
     /// <summary>
     /// ifがtrueのときライトを消費
     /// ifがfalseのときライトを停止

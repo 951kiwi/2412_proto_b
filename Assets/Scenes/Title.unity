@@ -933,6 +933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fade: {fileID: 781831598}
+  _keyCode: 323
   _inputCooldown: 4.2
 --- !u!114 &781831598
 MonoBehaviour:
@@ -949,6 +950,7 @@ MonoBehaviour:
   _panel: {fileID: 781831595}
   _duration: 4
   _flag: 0
+  _isDebug: 0
 --- !u!1 &788390908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,6 +1026,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788390908}
   m_CullTransparentMesh: 1
+--- !u!1001 &821659250
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6728142260477013036, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_Name
+      value: SEManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.6374063
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8032824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.009387272
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165441664182399731, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eeaf6868052e3af4bb32ac5ab65ca170, type: 3}
 --- !u!1 &880616254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,6 +1264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneName: SelectStage
+  _keyCode: 32
 --- !u!4 &1024453524
 Transform:
   m_ObjectHideFlags: 0
@@ -1452,7 +1512,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Enter Start
+  m_Text: Space Start
 --- !u!222 &1106286672
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1548,7 +1608,7 @@ GameObject:
   - component: {fileID: 1203213144}
   - component: {fileID: 1203213143}
   m_Layer: 5
-  m_Name: Press LeftShift black
+  m_Name: Press black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1606,7 +1666,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press LeftShift
+  m_Text: Press LeftClick
 --- !u!222 &1203213144
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2675,7 +2735,7 @@ GameObject:
   - component: {fileID: 2050258545}
   - component: {fileID: 2050258544}
   m_Layer: 5
-  m_Name: Press LeftShift white
+  m_Name: Press white
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2733,7 +2793,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press LeftShift
+  m_Text: Press LeftClick
 --- !u!222 &2050258545
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2750,6 +2810,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 911172715014585010, guid: cbebfa2d98d49954e8aa0994f61f893b, type: 3}
+      propertyPath: _flag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1482187191711281098, guid: cbebfa2d98d49954e8aa0994f61f893b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2848,3 +2912,4 @@ SceneRoots:
   - {fileID: 1678549965}
   - {fileID: 1024453524}
   - {fileID: 6594363175050150037}
+  - {fileID: 821659250}
