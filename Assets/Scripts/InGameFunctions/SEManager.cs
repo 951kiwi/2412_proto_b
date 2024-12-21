@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SEManager : MonoBehaviour
 {
+    /* AudioSourceを同時に鳴らしたい音の数だけ用意 */
+    protected AudioSource[] audioSources = new AudioSource[20];
+
     /* 名前と音を登録するためのインナークラス */
     [System.Serializable]
     public class SEData
@@ -12,15 +15,12 @@ public class SEManager : MonoBehaviour
         public AudioClip clip; // 音
     }
 
-    [SerializeField] SEData[] seDatas; // 音の名前と音を登録する配列
-
-    /* AudioSourceを同時に鳴らしたい音の数だけ用意 */
-    private AudioSource[] audioSources = new AudioSource[20];
-
     /* 別名(name)で音を再生するためのDictionary */
     private Dictionary<string, SEData> seDictionary = new Dictionary<string, SEData>();
 
-    private void Awake()
+    [SerializeField] SEData[] seDatas; // 音の名前と音を登録する配列
+    // Start is called before the first frame update
+    void Awake()
     {
         /* AudioSourceリストの数だけAudioSourceを生成して配列に格納 */
         for(int i = 0; i < audioSources.Length; i++)
@@ -33,6 +33,12 @@ public class SEManager : MonoBehaviour
         {
             seDictionary.Add(seData.name, seData);
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 
     private AudioSource GetUnusedAudioSource()
@@ -48,6 +54,23 @@ public class SEManager : MonoBehaviour
         return null; // 使用されていないAudioSourceがない場合はnullを返す
     }
 
+    /* 名前から音を再生する */
+    public void Play(string name)
+    {
+        /* 名前に対応するSEDataを取得 */
+        SEData seData;
+        if(seDictionary.TryGetValue(name, out seData)) // 名前に対応するSEDataがある場合
+        {
+            Debug.Log(name + "を再生");
+            Debug.Log(seData.clip);
+            Play(seData.clip); // SEDataに登録されている音を再生
+        }
+        else
+        {
+            Debug.LogWarning(name + "という名前のSEは登録されていません");
+        }
+    }
+
     /* クリップから音を再生する */
     public void Play(AudioClip clip)
     {
@@ -58,21 +81,6 @@ public class SEManager : MonoBehaviour
             /* AudioSourceに音をセットして再生 */
             audioSource.clip = clip;
             audioSource.Play();
-        }
-    }
-
-    /* 名前から音を再生する */
-    public void Play(string name)
-    {
-        /* 名前に対応するSEDataを取得 */
-        SEData seData;
-        if(seDictionary.TryGetValue(name, out seData)) // 名前に対応するSEDataがある場合
-        {
-            Play(seData.clip); // SEDataに登録されている音を再生
-        }
-        else
-        {
-            Debug.LogWarning(name + "という名前のSEは登録されていません");
         }
     }
 }

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7165441664182399731}
-  - component: {fileID: 1789888395604811513}
   - component: {fileID: 5949855595452986664}
+  - component: {fileID: 3161658513841060431}
   m_Layer: 0
   m_Name: SEManager
   m_TagString: Untagged
@@ -33,23 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1789888395604811513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6728142260477013036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8912bd1c2de0fe47919c3f93a271209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seDatas:
-  - name: Damage
-    clip: {fileID: 8300000, guid: c30769205cbb70a4c907729171814141, type: 3}
-  - name: Pinch
-    clip: {fileID: 8300000, guid: 08bf70420ca99d147bdabf79e2ac6fcb, type: 3}
 --- !u!114 &5949855595452986664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,4 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92d00069c28936498162ef4d475bc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seManager: {fileID: 1789888395604811513}
+  seManager: {fileID: 3161658513841060431}
+--- !u!114 &3161658513841060431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6728142260477013036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948bde3b7f58d49479a372059fc24492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seDatas:
+  - name: Damage
+    clip: {fileID: 8300000, guid: c30769205cbb70a4c907729171814141, type: 3}
+  - name: Pinch
+    clip: {fileID: 8300000, guid: 08bf70420ca99d147bdabf79e2ac6fcb, type: 3}
