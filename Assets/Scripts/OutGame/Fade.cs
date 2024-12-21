@@ -60,7 +60,7 @@ namespace OutGame
         public void FadeOut()
         {
             StartCoroutine(FadeImage(0, 1));
-            _seManager.Play("LightOn");
+            if (_seManager) _seManager.Play("LightOn");
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace OutGame
         public void FadeIn()
         {
             StartCoroutine(FadeImage(1, 0));
-            _seManager.Play("LightOn");
+            if (_seManager) _seManager.Play("LightOn");
         }
     }
 }
