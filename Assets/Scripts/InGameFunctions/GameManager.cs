@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using OutGame;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,6 +30,9 @@ public class GameManager : MonoBehaviour
     /* 止めたり再生したりする必要があるコンポーネント */
     [SerializeField] PlayerController playerController;
     [SerializeField] LightManager lightManager;
+
+    /* シーンチェンジで使うコンポーネント */
+    [SerializeField] SceneChanger sceneChanger;
 
     [SerializeField] float fallBorder = -10f; // 落下判定の境界値
     [SerializeField] float fallDamage = 10f; // 落下ダメージ
@@ -157,8 +161,18 @@ public class GameManager : MonoBehaviour
     public void GameClear()
     {
         Debug.Log("ゲームクリア");
+        int stageNum; // 宣言
         /* 現在のステージの数値を取得 */
-        int stageNum = int.Parse(nowLoadingSceneName.Substring(SCENESUBSTRING));
+        try
+        {
+            stageNum = int.Parse(nowLoadingSceneName.Substring(SCENESUBSTRING)); // シーン名からステージ番号を取得
+        }
+        catch(System.Exception e) // シーン名からステージ番号を取得できなかった場合
+        {
+            Debug.Log("ステージ番号取得エラー");
+            stageNum = 0; // ステージ番号を0にする
+        }
+        
         int stageScore = CalcScore(lightManager.getBattery()); // バッテリー残量からスコアを計算する
 
         /* 一旦データ保存は保留
@@ -167,11 +181,12 @@ public class GameManager : MonoBehaviour
         */
 
         ResultDataStore.Score = stageScore; // リザルトシーンのためにスコアを保存する
+        Debug.Log("スコア: " + stageScore); // スコアを表示
         
         /* ここでゲームクリアのUIを表示する処理を呼び出す */ /* あとで修正 */
         
         /* リザルトシーンに飛ばす */
-        SceneManager.LoadScene("Result");
+        sceneChanger.FadeChange("Result");
     }
 
     void UpdateReachStage(int stageNum)
