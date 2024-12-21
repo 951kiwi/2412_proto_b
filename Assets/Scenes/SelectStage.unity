@@ -271,7 +271,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "AD/\u2190\u2192: \u30B9\u30C6\u30FC\u30B8\u5909\u66F4\u3000Enter\uFF1A\u30B9\u30C6\u30FC\u30B8\u6C7A\u5B9A"
+  m_Text: "AD/\u2190\u2192: \u30B9\u30C6\u30FC\u30B8\u5909\u66F4\u3000Space\uFF1A\u30B9\u30C6\u30FC\u30B8\u6C7A\u5B9A"
 --- !u!222 &251341377
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -417,6 +417,7 @@ MonoBehaviour:
   - TestStage1
   - TestStateB
   - TestStateC
+  _keyCode: 32
 --- !u!1 &1073917872
 GameObject:
   m_ObjectHideFlags: 0

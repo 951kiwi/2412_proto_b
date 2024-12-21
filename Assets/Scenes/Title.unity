@@ -933,6 +933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fade: {fileID: 781831598}
+  _keyCode: 323
   _inputCooldown: 4.2
 --- !u!114 &781831598
 MonoBehaviour:
@@ -1263,6 +1264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneName: SelectStage
+  _keyCode: 32
 --- !u!4 &1024453524
 Transform:
   m_ObjectHideFlags: 0
@@ -1510,7 +1512,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Enter Start
+  m_Text: Space Start
 --- !u!222 &1106286672
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1606,7 +1608,7 @@ GameObject:
   - component: {fileID: 1203213144}
   - component: {fileID: 1203213143}
   m_Layer: 5
-  m_Name: Press LeftShift black
+  m_Name: Press black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1664,7 +1666,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press LeftShift
+  m_Text: Press LeftClick
 --- !u!222 &1203213144
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2733,7 +2735,7 @@ GameObject:
   - component: {fileID: 2050258545}
   - component: {fileID: 2050258544}
   m_Layer: 5
-  m_Name: Press LeftShift white
+  m_Name: Press white
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2791,7 +2793,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press LeftShift
+  m_Text: Press LeftClick
 --- !u!222 &2050258545
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2808,6 +2810,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 911172715014585010, guid: cbebfa2d98d49954e8aa0994f61f893b, type: 3}
+      propertyPath: _flag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1482187191711281098, guid: cbebfa2d98d49954e8aa0994f61f893b, type: 3}
       propertyPath: m_Pivot.x
       value: 0

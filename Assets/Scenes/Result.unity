@@ -130,10 +130,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 911172715014585010, guid: cbebfa2d98d49954e8aa0994f61f893b, type: 3}
-      propertyPath: _flag
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1482187191711281098, guid: cbebfa2d98d49954e8aa0994f61f893b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -612,6 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneName: SelectStage
+  _keyCode: 32
 --- !u!4 &1024453524
 Transform:
   m_ObjectHideFlags: 0
@@ -963,7 +960,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press Enter
+  m_Text: Press Space
 --- !u!222 &1506887272
 CanvasRenderer:
   m_ObjectHideFlags: 0
