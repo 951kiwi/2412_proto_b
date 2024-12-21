@@ -131,6 +131,9 @@ public class GameManager : MonoBehaviour
         lightManager.DoDamageBattery(fallDamage);
         /* 音を鳴らす */
         seManager.Play("Damage");
+
+        /* プレイヤーのアニメーションを再生する */
+        playerController.PlayerDamage(false);   
     }
 
     /* ゲームオーバー状態にする */
