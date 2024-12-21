@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [Serializable]
     struct BestScoresData
     {
-        public Dictionary<int, List<int>> bestScores; // ベストスコア
+        public SerializableDictionary<int, List<int>> bestScores; // ベストスコア
     }
     public float testScore; // テスト用スコア
     public int testStage; // テスト用ステージ番号
@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
     }
 
     /* ゲームオーバー状態にする */
-    async void GameOver()
+    void GameOver()
     {
         Debug.Log("ゲームオーバー");
         isGameOver = true;
@@ -147,14 +147,15 @@ public class GameManager : MonoBehaviour
         /* プレイヤーのアニメーションを再生する */
         playerController.PlayerGameOver(true);
         /* プレイヤーのアニメーションが終わるまで待つ */
-        await WaitAsync(playerDieAnimTime);
+        StartCoroutine(WaitCoroutine(playerDieAnimTime, () =>
+        {
+            /* プレイヤーのコンポーネントを停止する */
+            playerController.enabled = false;
+            Time.timeScale = 0; // ゲームの時間を停止する
 
-        /* プレイヤーのコンポーネントを停止する */
-        playerController.enabled = false;
-        Time.timeScale = 0; // ゲームの時間を停止する
-
-        /* ゲームオーバーのUIを表示する */
-        gameOverUI.SetActive(true);
+            /* ゲームオーバーのUIを表示する */
+            gameOverUI.SetActive(true);
+        })); // アニメーションが終わるまで待って、その後にactionを実行する
     }
 
     /* ゲームを再スタートする */
@@ -213,14 +214,18 @@ public class GameManager : MonoBehaviour
         int stageScore = CalcScore(lightManager.getBattery()); // バッテリー残量からスコアを計算する
 
         UpdateReachStage(stageNum); // ステージクリア状況を更新する
-        /* 一旦データ保存は保留 testでうまく動いたら有効にする
+        /* 動きそうなのでベストスコアも有効にする */
         UpdateBestScores(stageNum, stageScore); // ベストスコアを更新する
-        */
-
-        ResultDataStore.Score = stageScore; // リザルトシーンのためにスコアを保存する
-        Debug.Log("スコア: " + stageScore); // スコアを表示
         
-        /* ここでゲームクリアのUIを表示する処理を呼び出す */ /* あとで修正 */
+
+        /* ベストスコアを保存するために読み込む */
+        BestScoresData bestScoresData = SaveAndLoadManager.LoadData<BestScoresData>(BESTSCOREKEY); // ベストスコアを読み込む
+        int[] bestScoresArray = NormalizeBestScores(bestScoresData.bestScores[stageNum]); // ベストスコアを正規化する
+
+        SetResultData(stageScore, bestScoresArray); // リザルトシーンのためにスコアとベストスコアを保存する
+
+        Debug.Log("スコア: " + stageScore); // スコアを表示
+        Debug.Log("ベストスコア: " + bestScoresArray[0] + ", " + bestScoresArray[1] + ", " + bestScoresArray[2]); // ベストスコアを表示
         
         /* リザルトシーンに飛ばす */
         sceneChanger.FadeChange("Result");
@@ -264,7 +269,7 @@ public class GameManager : MonoBehaviour
         if(bestScoresData.bestScores == null)
         {
             Debug.Log("dictCreate");
-            bestScoresData.bestScores = new Dictionary<int, List<int>>(); // ベストスコアDicを新しく作成する
+            bestScoresData.bestScores = new SerializableDictionary<int, List<int>>(); // ベストスコアDicを新しく作成する
         }
 
         /* 現在のステージのベストスコアが登録されていない場合 */
@@ -281,7 +286,7 @@ public class GameManager : MonoBehaviour
         /* 現在のステージのベストスコアを取得 */
         try
         {
-            bestScoresList = bestScoresData.bestScores[stageNum]; // 現在のステージのベストスコアを取得 0-indexed
+            bestScoresList = bestScoresData.bestScores[stageNum]; // 現在のステージのベストスコアを取得
         }
         catch(System.Exception e) // 現在のステージのベストスコアが存在しない場合
         {
@@ -294,7 +299,7 @@ public class GameManager : MonoBehaviour
         }
         
         bestScoresList.Add(score); // ベストスコアに現在のスコア(バッテリー残量に依存)を追加
-        bestScoresList.Reverse(); // ベストスコアを降順に並び替える
+        bestScoresList = bestScoresList.OrderByDescending(i => i).ToList(); // ベストスコアを降順に並び替える
 
         /* ベストスコアの数が上限を超えている場合 */
         if(bestScoresList.Count > BESTSCORELIMIT)
@@ -303,12 +308,40 @@ public class GameManager : MonoBehaviour
         }
 
         /* ベストスコアを保存する */
-        bestScoresData.bestScores[stageNum] = bestScoresList; // 元データを更新 0-indexed
+        bestScoresData.bestScores[stageNum] = bestScoresList; // 元データを更新
         SaveAndLoadManager.SaveData<BestScoresData>(BESTSCOREKEY, bestScoresData);
 
         Debug.Log(bestScoresData);
         Debug.Log(bestScoresData.bestScores);
-        Debug.Log(bestScoresData.bestScores[stageNum]);
+        Debug.Log("Test3: " + bestScoresData.bestScores[stageNum]);
+    }
+
+    /* BestScoresDataを正規化(nullを-1に変換して配列に)する */
+    int[] NormalizeBestScores(List<int> bestScoresList)
+    {
+        int[] bestScores = new int[3]; // ベストスコアの箱 nullなら-1を入れる
+        /* 値の取得に成功したらその値、失敗したら-1を入れておく */
+        for(int i = 0; i < BESTSCORELIMIT; i++)
+        {
+            try
+            {
+                bestScores[i] = bestScoresList[i];
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogWarning(e);
+                Debug.Log(i);
+                bestScores[i] = -1;
+            }
+        }
+        return bestScores;
+    }
+
+    /* ResultDataStoreにデータを保存する */
+    void SetResultData(int score, int[] bestScores)
+    {
+        ResultDataStore.Score = score; // スコアを保存
+        ResultDataStore.BestScores = bestScores; // ベストスコアを保存
     }
 
     int CalcScore(float battery)
@@ -342,6 +375,24 @@ public class GameManager : MonoBehaviour
         if(bestScoresData.bestScores.ContainsKey(stageNum))
         {
             Debug.Log(String.Join(",", bestScoresData.bestScores[stageNum])); // ベストスコアを表示
+            int[] bestScores = new int[3]; // ベストスコアの箱 nullなら-1を入れる
+            /* 値の取得に成功したらその値、失敗したら-1を入れておく */
+            for(int i = 0; i < BESTSCORELIMIT; i++)
+            {
+                try
+                {
+                    bestScores[i] = bestScoresData.bestScores[stageNum][i];
+                }
+                catch(System.Exception e)
+                {
+                    Debug.LogWarning(e);
+                    Debug.Log(i);
+                    bestScores[i] = -1;
+                }
+            }
+            Debug.Log(bestScores[0]);
+            Debug.Log(bestScores[1]);
+            Debug.Log(bestScores[2]);
         }
         else
         {
@@ -359,5 +410,13 @@ public class GameManager : MonoBehaviour
     {
         int waitTimems = (int)(waitTime * 1000); // 秒をミリ秒に変換
         await Task.Delay(waitTimems); // 一定時間待つ
+    }
+
+    IEnumerator WaitCoroutine(float waitTime, Action action)
+    {
+        Debug.Log("WaitCoroutineStart");
+        yield return new WaitForSeconds(waitTime);
+        Debug.Log("WaitCoroutineEnd");
+        action();
     }
 }
