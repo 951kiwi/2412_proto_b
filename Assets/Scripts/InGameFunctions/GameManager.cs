@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     private bool isGameOver = false; // ゲームオーバーかどうか
     private bool isPaused = false; // ゲームが一時停止されているかどうか
+    private bool isBgmPlaying = false; // BGMが再生されているかどうか
     private string nowLoadingSceneName; // 現在読み込んでいるシーンの名前
 
     private const int SCENESUBSTRING = 5; // シーン名からステージ番号を取り出すために、文字をカットする定数
@@ -72,12 +73,18 @@ public class GameManager : MonoBehaviour
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>(); // BGMマネージャーを取得
 
         /* bgmを流す */
-        bgmManager.Play("InGameBGM1");
+        isBgmPlaying = bgmManager.Play("InGameBGM1");
     }
 
     // Update is called once per frame
     void Update()
     {
+        /* bgmが流れていない場合 */
+        if(!isBgmPlaying)
+        {
+            isBgmPlaying = bgmManager.Play("InGameBGM1"); // bgmを再生する
+        }   
+
         /* まだゲームオーバーでないかつ、バッテリー残量が0以下になったらゲームオーバー状態にする */
         if(!isGameOver && lightManager.getBattery() <= 0)
         {
@@ -111,6 +118,11 @@ public class GameManager : MonoBehaviour
             Debug.Log("落下");
             FallInHole();
         }
+
+        if(isPaused && Input.GetKeyDown(KeyCode.R)) // ポーズ中にRキーが押されたら
+        {
+            BackToSelectScene(); // セレクト画面に戻る
+        }
     }
 
     /* UI初期化 */
@@ -118,6 +130,12 @@ public class GameManager : MonoBehaviour
     {
         gameOverUI.SetActive(false); // ゲームオーバーのUIを非表示にする
         pauseUI.SetActive(false); // 一時停止のUIを非表示にする
+    }
+
+    /* セレクト画面に戻る */
+    void BackToSelectScene()
+    {
+        sceneChanger.FadeChange("SelectStage"); // セレクト画面に戻る
     }
 
     /* 穴に落ちた時の処理 */
@@ -162,7 +180,7 @@ public class GameManager : MonoBehaviour
     void RestartGame()
     {
         Debug.Log("ゲームを再スタート");
-        SceneManager.LoadScene(nowLoadingSceneName); // 現在読み込んでいるシーンを再読み込みする
+        sceneChanger.FadeChange(nowLoadingSceneName); // 現在読み込んでいるシーンを再読み込みする
     }
 
     /* ゲームを一時停止する */

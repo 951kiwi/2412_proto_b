@@ -32,7 +32,7 @@ public class BGMManager : MonoBehaviour
     }
 
     /* 名前から音を再生する */
-    public void Play(string name)
+    public bool Play(string name)
     {
         /* 名前に対応するBGMDataを取得 */
         BGMData bgmData;
@@ -40,26 +40,30 @@ public class BGMManager : MonoBehaviour
         {
             Debug.Log(name + "を再生");
             Debug.Log(bgmData.clip);
-            Play(bgmData.clip); // BGMDataに登録されている音を再生
+            bool isSuccess = Play(bgmData.clip); // BGMDataに登録されている音を再生
+            return isSuccess;
         }
         else
         {
             Debug.LogWarning(name + "という名前のBGMは登録されていません");
+            return false;
         }
     }
 
     /* クリップからBGMを再生する */
-    public void Play(AudioClip clip)
+    public bool Play(AudioClip clip)
     {
         if(audioSource != null) // audioSourceの取得に成功している場合
         {
             audioSource.clip = clip;
             audioSource.loop = true; // ループ再生
             audioSource.Play();
+            return true;
         }
         else
         {
             Debug.LogWarning("AudioSourceが取得できていません");
+            return false;
         }
     }
 }
