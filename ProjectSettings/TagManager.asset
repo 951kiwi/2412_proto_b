@@ -9,6 +9,8 @@ TagManager:
   - Needle
   - MoveGround
   - Enemy
+  - PlayerReg
+  - EnemyHead
   layers:
   - Default
   - TransparentFX
