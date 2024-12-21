@@ -278,6 +278,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8822720799809716394, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2102530754}
+    - target: {fileID: 8822720799809716394, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
       propertyPath: pauseUI
       value: 
       objectReference: {fileID: 854261373}
