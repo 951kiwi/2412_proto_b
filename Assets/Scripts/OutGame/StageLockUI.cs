@@ -15,7 +15,9 @@ namespace OutGame
         private void Start()
         {
             _reachStageData = SaveAndLoadManager.LoadData<GameManager.ReachStageData>("ReachStage");
-            for (var i = 0; i < _reachStageData.reachStage + 1; i++)
+            _stageUI[0].GetComponent<Image>().color = Color.white;
+
+            for (var i = 1; i < _reachStageData.reachStage; i++)
             {
                 _stageUI[i].GetComponent<Image>().color = Color.white;
             }

@@ -9,17 +9,12 @@ namespace OutGame
     /// </summary>
     public class SceneChanger : MonoBehaviour
     {
+        [SerializeField] private Fade _fade;
         public static SceneChanger Instance;
-        private Fade _fade;
 
         public void Awake()
         {
             Instance = this;
-        }
-
-        private void Start()
-        {
-            _fade = FindObjectOfType<Fade>();
         }
 
         /// <summary>
