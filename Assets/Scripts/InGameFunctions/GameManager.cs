@@ -77,16 +77,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* まだピンチでないかつ、バッテリー残量が30.5%未満になったらピンチ状態にする */
-        if(!isPinch && lightManager.getBatteryRate() < 0.305f)
+        /* まだピンチでないかつ、バッテリー残量が30%以下になったらピンチ状態にする */
+        if(!isPinch && lightManager.getBatteryRate() < 0.30f)
         {
             isPinch = true;
             Debug.Log("ピンチ");
             seManager.Play("Pinch"); // ピンチ音を鳴らす
         }
 
-        /* まだ危険でないかつ、バッテリー残量が15.5%未満になったら危険状態にする */
-        if(!isDanger && lightManager.getBatteryRate() < 0.155f)
+        /* まだ危険でないかつ、バッテリー残量が15%以下になったら危険状態にする */
+        if(!isDanger && lightManager.getBatteryRate() < 0.15f)
         {
             isDanger = true;
             Debug.Log("危険");
