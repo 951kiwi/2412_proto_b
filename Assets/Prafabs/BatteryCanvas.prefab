@@ -204,7 +204,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: babc4a27f003ee94a9d37f5a7d24b3d5, type: 3}
   - {fileID: 21300000, guid: 04bc28bea5a22c644b2f8b78da6de920, type: 3}
   - {fileID: 21300000, guid: 4f21aab22562181448516fa15782bad7, type: 3}
-  _shakeUI: {fileID: 0}
+  _shakeUI: {fileID: 2420540989673016780}
 --- !u!114 &2420540989673016780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,9 +219,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetImage: {fileID: 3940105690163579862}
   _duration: 0.5
-  _strength: 20
+  _strength: 10
   _vibrato: 10
   _randomness: 90
+  _interval: 1
+  _canShake: 1
   _isDebug: 0
 --- !u!1 &5914327982456981103
 GameObject:
