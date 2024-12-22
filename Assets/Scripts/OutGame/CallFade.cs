@@ -20,7 +20,7 @@ namespace OutGame
             // クールダウンタイマーを更新
             if (!_canPressShift)
             {
-                _cooldownTimer -= Time.deltaTime;
+                _cooldownTimer -= Time.unscaledDeltaTime;
                 if (_cooldownTimer <= 0f)
                 {
                     _canPressShift = true; // 再びシフトキーを押せるようにする
