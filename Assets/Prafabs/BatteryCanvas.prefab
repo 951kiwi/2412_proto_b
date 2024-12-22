@@ -205,6 +205,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 04bc28bea5a22c644b2f8b78da6de920, type: 3}
   - {fileID: 21300000, guid: 4f21aab22562181448516fa15782bad7, type: 3}
   _shakeUI: {fileID: 2420540989673016780}
+  _sizeUp: 3
+  _duration: 0.5
+  _canCall: 1
 --- !u!114 &2420540989673016780
 MonoBehaviour:
   m_ObjectHideFlags: 0

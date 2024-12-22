@@ -15,6 +15,8 @@ namespace InGameUI
         [SerializeField, Header("残量(画像)")] private GameObject _batteryObj;
         [SerializeField, Header("バッテリー画像s")] private List<Sprite> _sprites;
         [SerializeField] private ShakeUI _shakeUI;
+        [SerializeField, Header("拡大率")] private float _sizeUp = 3f;
+        [SerializeField, Header("拡大にかかる時間")] private float _duration = 1f;
         [SerializeField] private bool _canCall; // 一度だけ実行
         private LightManager _lightManager;
         private Image _image;
@@ -34,8 +36,8 @@ namespace InGameUI
 
         private void ScaleChangeLoop()
         {
-            if (!_canCall) return;
-            _text.transform.DOScale(2f, 1f) // 拡大
+            if (!_canCall) return; // 一度だけ呼ぶ
+            _text.transform.DOScale(_sizeUp, _duration) // 拡大
                 .SetLoops(-1, LoopType.Yoyo) // 無限ループでYoyo（行ったり来たり）
                 .SetEase(Ease.InOutSine); // 滑らかなイージング
             _canCall = false;
@@ -43,12 +45,12 @@ namespace InGameUI
 
         private void ChangeImage()
         {
-            _batteryValue = (int)_lightManager.getBattery();
+            _batteryValue = (int)(_lightManager.getBatteryRate() * 100);
             if (_batteryValue <= 0)
             {
                 _image.sprite = _sprites[0];
             }
-            else if (_batteryValue <= 10)
+            else if (_batteryValue <= 15)
             {
                 _image.sprite = _sprites[1];
                 if (_shakeUI) _shakeUI.Shake();
