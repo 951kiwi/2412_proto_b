@@ -276,8 +276,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 8272866993131041177, guid: aad593efd4c6b094f9ea504315d71847, type: 3}
-      propertyPath: lightButton
-      value: 323
+      propertyPath: seManager
+      value: 
+      objectReference: {fileID: 1366731044}
+    - target: {fileID: 8272866993131041177, guid: aad593efd4c6b094f9ea504315d71847, type: 3}
+      propertyPath: MaxBattery
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
