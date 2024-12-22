@@ -14,7 +14,7 @@ public class BGMManager : MonoBehaviour
     }
 
     /* シーン名と流すbgmの対応 */
-    public SerializableDictionary<List<string>, string> sceneNameToBGMName = new SerializableDictionary<List<string>, string>();
+    public SerializableDictionary<string, string> sceneNameToBGMName = new SerializableDictionary<string, string>();
 
     /* 別名(name)で音を再生するためのDictionary */
     private Dictionary<string, BGMData> bgmDictionary = new Dictionary<string, BGMData>();

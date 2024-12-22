@@ -47,20 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneNameToBGMName:
     data:
-    - Key:
-      - Stage1
-      - Stage2
-      - Stage3
+    - Key: Stage1
       Value: InGameBGM1
-    - Key:
-      - Title
-      Value: TitleBGM
-    - Key:
-      - SelectStage
-      Value: SelectBGM
-    - Key:
-      - Result
-      Value: ResultBGM
   bgmDatas:
   - name: InGameBGM1
     clip: {fileID: 8300000, guid: 48d0aebafa6a1ea499ee59707eda19fb, type: 3}
