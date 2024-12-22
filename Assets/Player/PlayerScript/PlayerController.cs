@@ -115,7 +115,6 @@ public class PlayerController : MonoBehaviour
 
     public void LightChanger(float _lightStrength)
     {
-        Debug.Log(_lightStrength);
         anim.SetFloat("LightStrength", _lightStrength);
     }
 
