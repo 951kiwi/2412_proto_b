@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
 
     private bool isGameOver = false; // ゲームオーバーかどうか
     private bool isPaused = false; // ゲームが一時停止されているかどうか
-    private bool isBgmPlaying = false; // BGMが再生されているかどうか
     private string nowLoadingSceneName; // 現在読み込んでいるシーンの名前
 
     private const int SCENESUBSTRING = 5; // シーン名からステージ番号を取り出すために、文字をカットする定数
@@ -71,20 +70,11 @@ public class GameManager : MonoBehaviour
 
         seManager = GameObject.Find("SEManager").GetComponent<SEManager>(); // SEマネージャーを取得
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>(); // BGMマネージャーを取得
-
-        /* bgmを流す */
-        isBgmPlaying = bgmManager.Play("InGameBGM1");
     }
 
     // Update is called once per frame
     void Update()
     {
-        /* bgmが流れていない場合 */
-        if(!isBgmPlaying)
-        {
-            isBgmPlaying = bgmManager.Play("InGameBGM1"); // bgmを再生する
-        }   
-
         /* まだゲームオーバーでないかつ、バッテリー残量が0以下になったらゲームオーバー状態にする */
         if(!isGameOver && lightManager.getBattery() <= 0)
         {
