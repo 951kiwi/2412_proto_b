@@ -29,7 +29,7 @@ public class BGMManager : MonoBehaviour
     {
         /* シーン名と流すbgmの対応を登録 */
         sceneNameToBGMName.Add("Title", "TitleBGM");
-        sceneNameToBGMName.Add("SelectStage ", "SelectBGM");
+        sceneNameToBGMName.Add("SelectStage", "SelectBGM");
         sceneNameToBGMName.Add("Stage1", "InGameBGM1");
         sceneNameToBGMName.Add("Stage2", "InGameBGM2");
         sceneNameToBGMName.Add("Stage3", "InGameBGM3");

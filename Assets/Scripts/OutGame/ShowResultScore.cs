@@ -20,7 +20,7 @@ namespace OutGame
                 /* データなしなら-----を表示 ありならそのデータを表示*/
                 if(bestScores[i] == -1)
                 {
-                    _bestScoerTexts[i].text = String.Format("{0}", "-----");
+                    _bestScoerTexts[i].text = String.Format(_bestScoerTexts[i].text, "-----");
                 }
                 else
                 {
