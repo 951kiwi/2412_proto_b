@@ -13,10 +13,11 @@ public class LightManager : MonoBehaviour
     private float updateMinusBattery = 0.01f; //ライト点灯時の継続の減り
     private float lowBatteryPercent = 0f; //バッテリーが残り少ない時の点滅
     [SerializeField] private KeyCode lightButton = KeyCode.LeftShift; //ライト点灯用ボタン
-
+    [SerializeField] private GameObject damagePrefab;
     private bool startBattery = true; //LightOn()で一回だけ使用するための変数
     private bool isCoroutine = false; //コルーチンが存在するかの確認
     private StageManager stageManager; //ステージマネージャー
+    public SEManager seManager;
     private PlayerController playerController;
     public UnityEngine.Camera camera; //カメラ取得(背景色変更用)
 
@@ -40,6 +41,8 @@ public class LightManager : MonoBehaviour
     private void ResetBattery(){
         battery = 100f;
     }
+
+    private bool lightOff = false;
     /// <summary>
     /// ifがtrueのときライトを消費
     /// ifがfalseのときライトを停止
@@ -47,6 +50,7 @@ public class LightManager : MonoBehaviour
     private void LightOn(){
         if (Input.GetKey (lightButton)){//ライト点灯
             if(startBattery){
+                if (seManager != null) seManager.Play("LightOn");
                 StartCoroutine("StartMinusBattery");//最初のバッテリーの減り
                 startBattery = false;
             }
@@ -61,9 +65,15 @@ public class LightManager : MonoBehaviour
             else{
                 FadeIn();
             }
+            lightOff = true;
 
         }
         else{//ライト消灯
+            if (lightOff)
+            {
+                lightOff = false;
+                if (seManager != null) seManager.Play("LightOn");
+            }
             FadeOut();
             startBattery = true;
         }
@@ -165,6 +175,8 @@ public class LightManager : MonoBehaviour
     /// </summary>
     /// <param name="damage">ダメージ数</param>
     public void DoDamageBattery(float damage){
+        StartCoroutine("damageShow");
+
         if(battery > 0){
             battery = battery - damage;
         }
@@ -172,15 +184,101 @@ public class LightManager : MonoBehaviour
             battery = 0;
         }
     }
-    
+
+    IEnumerator damageShow()
+    {
+        GameObject pl = GameObject.Find("Player");
+        Vector3 pos = new Vector3(pl.transform.position.x, pl.transform.position.y, 10);
+        // Prefabをシーンにインスタンス化
+        GameObject spawnedPrefab = Instantiate(damagePrefab, pos, Quaternion.identity);
+        spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+        for (int i = 0; i < 15; i++)
+        {
+            if (Input.GetKey(lightButton))
+            {
+                float up = 4f * Time.deltaTime;
+                float al = spawnedPrefab.GetComponent<SpriteRenderer>().color.a;
+                if (al < 1)
+                {//白になったら処理停止
+                 // アルファ値だけを増加
+                    spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0,
+                        al + up);
+                }
+                else
+                {
+                    spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 1);
+                }
+                stageManager.ChangelightStage(new Color(al, al, al));
+                yield return null;
+            }
+            else
+            {
+                float up = 4f * Time.deltaTime;
+                float al = spawnedPrefab.GetComponent<SpriteRenderer>().color.a;
+                if (al < 1)
+                {//白になったら処理停止
+                 // アルファ値だけを増加
+                    spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f,
+                        al + up);
+                }
+                else
+                {
+                    spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                }
+                stageManager.ChangelightStage(new Color(al, al, al));
+                yield return null;
+            }
+
+        }
+        for (int i = 0; i < 30; i++)
+        {
+            if (Input.GetKey(lightButton))
+            {
+                float up = -2.5f * Time.deltaTime;
+                float al = spawnedPrefab.GetComponent<SpriteRenderer>().color.a;
+                if (al < 1)
+                {//白になったら処理停止
+                 // アルファ値だけを増加
+                    spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0,
+                        al + up);
+                }
+                else
+                {
+                    spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+                }
+                //stageManager.ChangelightStage(new Color(al, al, al));
+                yield return null;
+            }
+            else
+            {
+                float up = -2.5f * Time.deltaTime;
+                float al = spawnedPrefab.GetComponent<SpriteRenderer>().color.a;
+                if (al < 1)
+                {//白になったら処理停止
+                 // アルファ値だけを増加
+                    spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f,
+                        al + up);
+                }
+                else
+                {
+                    spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                }
+                stageManager.ChangelightStage(new Color(al, al, al));
+                yield return null;
+            }
+        }
+        Destroy(spawnedPrefab);
+
+    }
     /// <summary>
     /// バッテリー状態を取得する
     /// </summary>
     /// <returns>battery</returns>
     public float getBattery(){
-        if(battery < 0){
+        if(battery <= 0){
             battery = 0;
+            return battery;
         }
-        return battery;
+        return battery + 0.5f;
     }
 }
