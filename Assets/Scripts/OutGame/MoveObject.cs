@@ -20,10 +20,10 @@ namespace OutGame
 
         private void Update()
         {
-            if (_currentNum != _selectStage.Num)
+            if (_currentNum != _selectStage.StageIndex)
             {
-                _currentNum = _selectStage.Num;
-                _pos.x = _movePoints[_selectStage.Num].transform.position.x;
+                _currentNum = _selectStage.StageIndex;
+                _pos.x = _movePoints[_selectStage.StageIndex].transform.position.x;
                 transform.position = _pos;
             }
         }

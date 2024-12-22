@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
             FallInHole();
         }
 
-        if(isPaused && Input.GetKeyDown(KeyCode.R)) // ポーズ中にRキーが押されたら
+        if((isGameOver || isPaused) && Input.GetKeyDown(KeyCode.R)) // ゲームオーバー中orポーズ中にRキーが押されたら
         {
             BackToSelectScene(); // セレクト画面に戻る
         }
