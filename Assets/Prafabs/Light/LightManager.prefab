@@ -46,4 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightButton: 323
   damagePrefab: {fileID: 8358176040171245035, guid: aed3d9067d1f16d409af78a6867a350c, type: 3}
+  seManager: {fileID: 0}
   camera: {fileID: 0}

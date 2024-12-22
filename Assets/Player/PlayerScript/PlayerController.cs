@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
             input_jump = true;
         }
 
-        if(Input.GetKey(LightSwitchKey) || isPlayerTest)
+        if(Input.GetKey(LightSwitchKey) && isPlayerTest)
         {
             LightChanger(LightStrength);
         }
@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
 
     public void LightChanger(float _lightStrength)
     {
+        Debug.Log(_lightStrength);
         anim.SetFloat("LightStrength", _lightStrength);
     }
 
