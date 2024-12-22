@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace InGameUI
 
         private void ChangeImage()
         {
-            _batteryValue = (int)(_lightManager.getBatteryRate() * 100);
+            _batteryValue = (int)Math.Ceiling(_lightManager.getBatteryRate() * 100f);
             if (_batteryValue <= 0)
             {
                 _image.sprite = _sprites[0];
