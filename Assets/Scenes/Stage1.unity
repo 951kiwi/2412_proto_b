@@ -954,6 +954,10 @@ PrefabInstance:
       propertyPath: m_TileAssetArray.Array.data[0].m_Data
       value: 
       objectReference: {fileID: 2063325850}
+    - target: {fileID: 2592490720258029536, guid: e123f0a931e510b4187609ba0e9cad30, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3248644488699980363, guid: e123f0a931e510b4187609ba0e9cad30, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -998,6 +1002,14 @@ PrefabInstance:
       propertyPath: m_gameManager
       value: 
       objectReference: {fileID: 1473725479}
+    - target: {fileID: 3592819430096213592, guid: e123f0a931e510b4187609ba0e9cad30, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434649347920551413, guid: e123f0a931e510b4187609ba0e9cad30, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7677378515985151843, guid: e123f0a931e510b4187609ba0e9cad30, type: 3}
       propertyPath: m_Name
       value: Stage1
