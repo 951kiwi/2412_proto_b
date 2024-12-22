@@ -35,6 +35,10 @@ namespace OutGame
             {
                 SceneChanger.Instance.FadeChange(_stageNames[_stageIndex]);
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneChanger.Instance.FadeChange("Title");
+            }
         }
 
         /// <summary>
