@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float fallBorder = -10f; // 落下判定の境界値
     [SerializeField] float fallDamage = 10f; // 落下ダメージ
 
+    private bool isPinch = false; // ピンチ状態かどうか(バッテリー30%以下)
+    private bool isDanger = false; // 危険状態かどうか(バッテリー10%以下)
     private bool isGameOver = false; // ゲームオーバーかどうか
     private bool isPaused = false; // ゲームが一時停止されているかどうか
     private string nowLoadingSceneName; // 現在読み込んでいるシーンの名前
@@ -75,6 +77,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /* まだピンチでないかつ、バッテリー残量が30.5%未満になったらピンチ状態にする */
+        if(!isPinch && lightManager.getBatteryRate() < 0.305f)
+        {
+            isPinch = true;
+            Debug.Log("ピンチ");
+            seManager.Play("Pinch"); // ピンチ音を鳴らす
+        }
+
+        /* まだ危険でないかつ、バッテリー残量が15.5%未満になったら危険状態にする */
+        if(!isDanger && lightManager.getBatteryRate() < 0.155f)
+        {
+            isDanger = true;
+            Debug.Log("危険");
+            seManager.Play("Danger"); // 危険音を鳴らす
+        }
+
         /* まだゲームオーバーでないかつ、バッテリー残量が0以下になったらゲームオーバー状態にする */
         if(!isGameOver && lightManager.getBattery() <= 0)
         {
@@ -148,6 +166,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("ゲームオーバー");
         isGameOver = true;
+        seManager.Play("ShutDown"); // ゲームオーバー音を鳴らす
 
         /* ライトコンポーネントを停止させる */
         lightManager.enabled = false;
