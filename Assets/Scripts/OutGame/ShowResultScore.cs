@@ -8,12 +8,34 @@ namespace OutGame
     {
         [SerializeField] private Text _scoreText;
         [SerializeField] private Text[] _bestScoerTexts;
+        float Scoretime = 0;
+        [SerializeField] private float ScoreShowTime = 1.0f;
+        bool hasShow = false;
+
+        int score = 0;
 
         private void Start()
         {
-            var score = ResultDataStore.Score;
-            _scoreText.text = $"{score}";
+            score = ResultDataStore.Score;
+            _scoreText.text = $"{0}";
+            Scoretime = 0;
+            ShowBests();
+        }
 
+        private void Update()
+        {
+            if (hasShow) return;
+            Scoretime += Time.deltaTime;
+            _scoreText.text = $"{(int)(score * (Scoretime / ScoreShowTime))}";
+            if (Scoretime >= ScoreShowTime)
+            {
+                _scoreText.text = $"{score}";
+                hasShow = true;
+            }
+        }
+
+        private void ShowBests()
+        {
             var bestScores = ResultDataStore.BestScores;
             for (var i = 0; i < bestScores.Length; i++)
             {
