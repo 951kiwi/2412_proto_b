@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7491339f9b5faf4ba55dc3a610c5ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battery: 0
-  MaxBattery: 100
   lightButton: 323
   damagePrefab: {fileID: 8358176040171245035, guid: aed3d9067d1f16d409af78a6867a350c, type: 3}
   seManager: {fileID: 0}
