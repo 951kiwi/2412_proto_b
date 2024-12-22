@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +11,11 @@ namespace InGameUI
     /// </summary>
     public class ChangeBatteryUI : MonoBehaviour
     {
-        [SerializeField, Header("バッテリー残量")] private Text _text;
-        [SerializeField, Header("バッテリー画像")] private GameObject _batteryObj;
-        [SerializeField, Header("画像")] private List<Sprite> _sprites;
+        [SerializeField, Header("残量(数値)")] private Text _text;
+        [SerializeField, Header("残量(画像)")] private GameObject _batteryObj;
+        [SerializeField, Header("バッテリー画像s")] private List<Sprite> _sprites;
+        [SerializeField] private ShakeUI _shakeUI;
+        [SerializeField] private bool _canCall; // 一度だけ実行
         private LightManager _lightManager;
         private Image _image;
         private int _batteryValue;
@@ -29,6 +32,15 @@ namespace InGameUI
             _text.text = $"{_batteryValue}";
         }
 
+        private void ScaleChangeLoop()
+        {
+            if (!_canCall) return;
+            _text.transform.DOScale(2f, 1f) // 拡大
+                .SetLoops(-1, LoopType.Yoyo) // 無限ループでYoyo（行ったり来たり）
+                .SetEase(Ease.InOutSine); // 滑らかなイージング
+            _canCall = false;
+        }
+
         private void ChangeImage()
         {
             _batteryValue = (int)_lightManager.getBattery();
@@ -39,10 +51,14 @@ namespace InGameUI
             else if (_batteryValue <= 10)
             {
                 _image.sprite = _sprites[1];
+                if (_shakeUI) _shakeUI.Shake();
+                _text.color = Color.red;
+                ScaleChangeLoop();
             }
             else if (_batteryValue <= 30)
             {
                 _image.sprite = _sprites[2];
+                _text.color = Color.yellow;
             }
             else if (_batteryValue <= 50)
             {
