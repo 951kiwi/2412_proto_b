@@ -18,6 +18,7 @@ public class EnemyCollisionCheck : MonoBehaviour
     [HideInInspector] public bool isWall = false;
     [HideInInspector] public bool isHead = false;
     [SerializeField] private SampleEnum part;
+    [SerializeField] Animator anim;
     private mob_value data;
     private string groundTag = "Ground";
     private string playerTag = "PlayerReg";
@@ -40,11 +41,13 @@ public class EnemyCollisionCheck : MonoBehaviour
         else if (part == SampleEnum.Head){
             if (collision.tag == playerTag){
                 data.isHead = true;
+                anim.SetBool("isGrounded", true);
             }
         }
         else if(part == SampleEnum.Ground){
             if (collision.tag == groundTag){
                 data.isGround = true;
+                anim.SetBool("isGrounded", true);
             }
         }
     }
@@ -61,11 +64,13 @@ public class EnemyCollisionCheck : MonoBehaviour
         else if (part == SampleEnum.Head){
             if (collision.tag == playerTag){
                 data.isHead = false;
+                anim.SetBool("isGrounded", false);
             }
         }
         else if(part == SampleEnum.Ground){
             if (collision.tag == groundTag){
                 data.isGround = false;
+                anim.SetBool("isGrounded", false);
             }
         }
     }

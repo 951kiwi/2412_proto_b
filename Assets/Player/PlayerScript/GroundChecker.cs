@@ -29,6 +29,10 @@ public class GroundChecker : MonoBehaviour
                 player.is_grounded = false;
                 player.is_jumping = true;
             }
+            if(tag == "Needle")
+            {
+                player.isMoveGround = false;
+            }
         }
         foreach(string tag in MoveGroundTags)
         {
@@ -61,6 +65,10 @@ public class GroundChecker : MonoBehaviour
                 player.transform.parent = collision.gameObject.transform;
                 player.isMoveGround = true;
             }
+        }
+        if(collision.gameObject.tag == "Needle")
+        {
+            player.isMoveGround = true;
         }
         if(collision.gameObject.tag == "EnemyHead")
         {

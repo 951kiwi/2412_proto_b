@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2100
   stringTagMap:
     OriginalKeywords: MOCHIE_PBR POI_ANISOTROPICS POI_LIGHT_DATA_ADDITIVE_DIRECTIONAL_ENABLE
       POI_LIGHT_DATA_ADDITIVE_ENABLE POI_VERTEXLIGHT_ON VIGNETTE_MASKED _LIGHTINGMODE_WRAPPED
