@@ -3302,7 +3302,7 @@ Material:
     - _EmissionAL3StrengthMod: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionBlendMask_ScrollRotate: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionBlink: {r: 1, g: 1, b: 3.1415932, a: 0}
-    - _EmissionColor: {r: 0, g: 2.5349085, b: 3.5648696, a: 1}
+    - _EmissionColor: {r: 4.759381, g: 0, b: 0.049837112, a: 1}
     - _EmissionColor1: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor2: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor3: {r: 1, g: 1, b: 1, a: 1}

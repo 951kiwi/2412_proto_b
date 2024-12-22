@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     OriginalKeywords: POI_LIGHT_DATA_ADDITIVE_DIRECTIONAL_ENABLE POI_LIGHT_DATA_ADDITIVE_ENABLE
       POI_VERTEX_GLITCHING _ALPHAPREMULTIPLY_ON _EMISSION _LIGHTINGMODE_FLAT _RIM2STYLE_POIYOMI
@@ -1121,7 +1121,7 @@ Material:
     - _CubeMapReplace: 1
     - _CubeMapUVMode: 1
     - _CubeMapWorldNormalsStrength: 1
-    - _Cull: 2
+    - _Cull: 0
     - _CurvFix: 1
     - _CurvatureU: 0
     - _CurvatureV: 0
@@ -2826,7 +2826,7 @@ Material:
     - _VisibilityVRCRegular: 1
     - _ZClip: 1
     - _ZTest: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
     - _e2gai: 2
     - _e2gci: 2
     - _egai: 2
@@ -3319,7 +3319,7 @@ Material:
     - _EmissionAL3StrengthMod: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionBlendMask_ScrollRotate: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionBlink: {r: 1, g: 1, b: 3.1415932, a: 0}
-    - _EmissionColor: {r: 0, g: 0.70980394, b: 1, a: 1}
+    - _EmissionColor: {r: 3.482202, g: 0, b: 0.04096812, a: 1}
     - _EmissionColor1: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor2: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor3: {r: 1, g: 1, b: 1, a: 1}
