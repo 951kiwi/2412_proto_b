@@ -41,13 +41,13 @@ public class EnemyCollisionCheck : MonoBehaviour
         else if (part == SampleEnum.Head){
             if (collision.tag == playerTag){
                 data.isHead = true;
-                anim.SetBool("isGrounded", true);
+                if(anim != null) anim.SetBool("isGrounded", true);
             }
         }
         else if(part == SampleEnum.Ground){
             if (collision.tag == groundTag){
                 data.isGround = true;
-                anim.SetBool("isGrounded", true);
+                if(anim != null) anim.SetBool("isGrounded", true);
             }
         }
     }
@@ -64,13 +64,13 @@ public class EnemyCollisionCheck : MonoBehaviour
         else if (part == SampleEnum.Head){
             if (collision.tag == playerTag){
                 data.isHead = false;
-                anim.SetBool("isGrounded", false);
+                if(anim != null) anim.SetBool("isGrounded", false);
             }
         }
         else if(part == SampleEnum.Ground){
             if (collision.tag == groundTag){
                 data.isGround = false;
-                anim.SetBool("isGrounded", false);
+                if(anim != null) anim.SetBool("isGrounded", false);
             }
         }
     }
