@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BGMManager : MonoBehaviour
 {
@@ -12,11 +13,16 @@ public class BGMManager : MonoBehaviour
         public AudioClip clip; // 音
     }
 
+    /* シーン名と流すbgmの対応 */
+    public SerializableDictionary<List<string>, string> sceneNameToBGMName = new SerializableDictionary<List<string>, string>();
+
     /* 別名(name)で音を再生するためのDictionary */
     private Dictionary<string, BGMData> bgmDictionary = new Dictionary<string, BGMData>();
 
     /* オーディオソース */
     private AudioSource audioSource;
+
+    private bool isBgmPlaying = false; // BGMが再生されているかどうか
 
     [SerializeField] BGMData[] bgmDatas; // 音の名前と音を登録する配列
     void Awake()
@@ -29,6 +35,16 @@ public class BGMManager : MonoBehaviour
             bgmDictionary.Add(bgmData.name, bgmData);
         }
         
+    }
+
+    void Update()
+    {
+        /* bgmが流れていない場合 */
+        if(!isBgmPlaying)
+        {
+            string bgmName = sceneNameToBGMName[SceneManager.GetActiveScene().name]; // シーン名に対応するbgm名を取得
+            isBgmPlaying = Play(bgmName); // bgmを再生する
+        }   
     }
 
     /* 名前から音を再生する */
