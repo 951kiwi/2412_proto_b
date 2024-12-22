@@ -14,7 +14,7 @@ public class BGMManager : MonoBehaviour
     }
 
     /* シーン名と流すbgmの対応 */
-    public SerializableDictionary<string, string> sceneNameToBGMName = new SerializableDictionary<string, string>();
+    private Dictionary<string, string> sceneNameToBGMName = new SerializableDictionary<string, string>();
 
     /* 別名(name)で音を再生するためのDictionary */
     private Dictionary<string, BGMData> bgmDictionary = new Dictionary<string, BGMData>();
@@ -27,6 +27,14 @@ public class BGMManager : MonoBehaviour
     [SerializeField] BGMData[] bgmDatas; // 音の名前と音を登録する配列
     void Awake()
     {
+        /* シーン名と流すbgmの対応を登録 */
+        sceneNameToBGMName.Add("Title", "TitleBGM");
+        sceneNameToBGMName.Add("Select", "SelectBGM");
+        sceneNameToBGMName.Add("Stage1", "InGameBGM1");
+        sceneNameToBGMName.Add("Stage2", "InGameBGM2");
+        sceneNameToBGMName.Add("Stage3", "InGameBGM3");
+        sceneNameToBGMName.Add("Result", "ResultBGM");
+
         audioSource = GetComponent<AudioSource>(); // AudioSourceを取得
 
         /* bgmDictionaryに名前と音を登録 */
