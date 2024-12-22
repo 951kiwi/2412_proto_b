@@ -146,7 +146,7 @@ MonoBehaviour:
   isWall: 0
   isHead: 0
   part: 2
-  anim: {fileID: 0}
+  anim: {fileID: 5891661162588385018}
 --- !u!1 &2814219465459202166
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   isWall: 0
   isHead: 0
   part: 3
-  anim: {fileID: 0}
+  anim: {fileID: 5891661162588385018}
 --- !u!1 &2856853658151762166
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +704,7 @@ MonoBehaviour:
   isWall: 0
   isHead: 0
   part: 1
-  anim: {fileID: 0}
+  anim: {fileID: 5891661162588385018}
 --- !u!1001 &47841079525577579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -856,5 +856,10 @@ PrefabInstance:
 --- !u!4 &514340854273832064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b5746fb76ab9b53438640f9e78d7a2ac, type: 3}
+  m_PrefabInstance: {fileID: 47841079525577579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5891661162588385018 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: b5746fb76ab9b53438640f9e78d7a2ac, type: 3}
   m_PrefabInstance: {fileID: 47841079525577579}
   m_PrefabAsset: {fileID: 0}
