@@ -146,7 +146,7 @@ MonoBehaviour:
   isWall: 0
   isHead: 0
   part: 2
-  anim: {fileID: 0}
+  anim: {fileID: 5891661162588385018}
 --- !u!1 &2814219465459202166
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +704,7 @@ MonoBehaviour:
   isWall: 0
   isHead: 0
   part: 1
-  anim: {fileID: 0}
+  anim: {fileID: 5891661162588385018}
 --- !u!1001 &47841079525577579
 PrefabInstance:
   m_ObjectHideFlags: 0
