@@ -6,7 +6,8 @@ using TMPro;
 
 public class LightManager : MonoBehaviour
 {
-    private float battery; //バッテリー変数
+    [SerializeField] private float battery; //バッテリー変数
+    [SerializeField] private float MaxBattery = 100f;
     
     
     private float startMinusBattery = 5f; //ライト点灯した時の最初の加速減り
@@ -28,12 +29,12 @@ public class LightManager : MonoBehaviour
         camera.backgroundColor = Color.black;
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        battery = 100f;
-        
+        battery = MaxBattery;
     }
 
     void Update()
     {
+
         LightOn();
         stageManager.ChangelightStage(camera.backgroundColor);
         
@@ -284,5 +285,18 @@ public class LightManager : MonoBehaviour
             return battery;
         }
         return battery + 0.5f;
+    }
+    /// <summary>
+    /// バッテリー状態を取得する(割合表示 0~1で)
+    /// </summary>
+    /// <returns>battery</returns>
+    public float getBatteryRate()
+    {
+        if (battery/MaxBattery <= 0)
+        {
+            battery = 0;
+            return battery;
+        }
+        return battery / MaxBattery;
     }
 }
