@@ -194,6 +194,8 @@ public class LightManager : MonoBehaviour
         spawnedPrefab.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
         for (int i = 0; i < 15; i++)
         {
+            pos = new Vector3(pl.transform.position.x, pl.transform.position.y, 10);
+            spawnedPrefab.transform.position = pos;
             if (Input.GetKey(lightButton))
             {
                 float up = 4f * Time.deltaTime;
@@ -232,6 +234,8 @@ public class LightManager : MonoBehaviour
         }
         for (int i = 0; i < 30; i++)
         {
+            pos = new Vector3(pl.transform.position.x, pl.transform.position.y, 10);
+            spawnedPrefab.transform.position = pos;
             if (Input.GetKey(lightButton))
             {
                 float up = -2.5f * Time.deltaTime;
