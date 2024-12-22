@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
             stageNum = 0; // ステージ番号を0にする
         }
         
-        int stageScore = CalcScore(lightManager.getBattery()); // バッテリー残量からスコアを計算する
+        int stageScore = CalcScore(lightManager.getBatteryRate()); // バッテリー残量からスコアを計算する
 
         UpdateReachStage(stageNum); // ステージクリア状況を更新する
         /* 動きそうなのでベストスコアも有効にする */
@@ -355,7 +355,7 @@ public class GameManager : MonoBehaviour
     int CalcScore(float battery)
     {
         /* スコアを計算する処理 */
-        int score = (int)(battery * 100); // バッテリー残量*100を整数にしてスコアとする
+        int score = (int)(battery * 10000); // バッテリー残量(0 ~ 1)*10000を整数にしてスコアとする
         return score;
     }
 

@@ -259,7 +259,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press Enter
+  m_Text: 'Enter : Reset'
 --- !u!1 &3769717545879480188
 GameObject:
   m_ObjectHideFlags: 0
