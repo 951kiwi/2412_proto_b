@@ -45,19 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf03d17f8f368247abab06de3d5ee7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNameToBGMName:
-    data:
-    - Key: Stage1
-      Value: InGameBGM1
   bgmDatas:
   - name: InGameBGM1
     clip: {fileID: 8300000, guid: 48d0aebafa6a1ea499ee59707eda19fb, type: 3}
   - name: TitleBGM
-    clip: {fileID: 8300000, guid: 48d0aebafa6a1ea499ee59707eda19fb, type: 3}
+    clip: {fileID: 8300000, guid: 1ecf82c95cea74a448b626afeb4a3c1d, type: 3}
   - name: SelectBGM
-    clip: {fileID: 8300000, guid: 48d0aebafa6a1ea499ee59707eda19fb, type: 3}
+    clip: {fileID: 8300000, guid: 2a84de3b1e289d248924309699083569, type: 3}
   - name: ResultBGM
-    clip: {fileID: 8300000, guid: 48d0aebafa6a1ea499ee59707eda19fb, type: 3}
+    clip: {fileID: 8300000, guid: bbb3013f1fa4fab4a8748f116f47dced, type: 3}
 --- !u!82 &8030387338070623480
 AudioSource:
   m_ObjectHideFlags: 0
