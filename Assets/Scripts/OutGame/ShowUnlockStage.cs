@@ -18,7 +18,7 @@ namespace OutGame
             GameManager.ReachStageData reachStageData =
                 SaveAndLoadManager.LoadData<GameManager.ReachStageData>("ReachStage");
             var a = reachStageData.reachStage;
-            _text.text = $"reach stage : {a}";
+            _text.text = $"max stage clear : {a}";
         }
     }
 }

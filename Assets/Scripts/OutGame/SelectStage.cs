@@ -1,5 +1,7 @@
+
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace OutGame
 {
@@ -23,9 +25,21 @@ namespace OutGame
         /// <summary> 選択中のインデックス番号 _num:0で第一ステージに該当 </summary>
         public int StageIndex => _stageIndex;
 
+        /* all Stage Clear */
+        public UnityEngine.UI.Image image;
+        public Text text;
+
         private void Start()
         {
             _reachStageData = SaveAndLoadManager.LoadData<GameManager.ReachStageData>("ReachStage");
+            GameObject im = GameObject.Find("Complete");
+            Text tx = GameObject.Find("CompleteText").GetComponent<Text>();
+            Debug.Log(_reachStageData.reachStage + " : " + _stageNames.Count);
+            if(_reachStageData.reachStage == _stageNames.Count)
+            {
+                im.SetActive(true);
+                tx.enabled = true;
+            }
         }
 
         private void Update()
@@ -35,7 +49,7 @@ namespace OutGame
             {
                 SceneChanger.Instance.FadeChange(_stageNames[_stageIndex]);
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
                 SceneChanger.Instance.FadeChange("Title");
             }
