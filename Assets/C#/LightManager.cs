@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public class LightManager : MonoBehaviour
 {
+    public readonly string Label;
+
     [SerializeField] private float battery; //バッテリー変数
     [SerializeField] private float MaxBattery = 100f;
-    
-    
-    private float startMinusBattery = 5f; //ライト点灯した時の最初の加速減り
-    private float updateMinusBattery = 0.01f; //ライト点灯時の継続の減り
+    [SerializeField] private double AlwaysBattery = 0.004f; //常に持続的に減る
+
+
+    [SerializeField] private float startMinusBattery = 5f; //ライト点灯した時の最初の加速減り
+    [SerializeField] private float updateMinusBattery = 0.01f; //ライト点灯時の継続の減り
     private float lowBatteryPercent = 0f; //バッテリーが残り少ない時の点滅
     [SerializeField] private KeyCode lightButton = KeyCode.LeftShift; //ライト点灯用ボタン
     [SerializeField] private GameObject damagePrefab;
@@ -37,7 +39,7 @@ public class LightManager : MonoBehaviour
 
         LightOn();
         stageManager.ChangelightStage(camera.backgroundColor);
-        
+        battery = battery - (float)AlwaysBattery;
     }
     private void ResetBattery(){
         battery = 100f;
