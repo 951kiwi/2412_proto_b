@@ -17,6 +17,7 @@ public class LightManager : MonoBehaviour
     private bool startBattery = true; //LightOn()で一回だけ使用するための変数
     private bool isCoroutine = false; //コルーチンが存在するかの確認
     private StageManager stageManager; //ステージマネージャー
+    public SEManager seManager;
     private PlayerController playerController;
     public UnityEngine.Camera camera; //カメラ取得(背景色変更用)
 
@@ -40,6 +41,8 @@ public class LightManager : MonoBehaviour
     private void ResetBattery(){
         battery = 100f;
     }
+
+    private bool lightOff = false;
     /// <summary>
     /// ifがtrueのときライトを消費
     /// ifがfalseのときライトを停止
@@ -47,6 +50,7 @@ public class LightManager : MonoBehaviour
     private void LightOn(){
         if (Input.GetKey (lightButton)){//ライト点灯
             if(startBattery){
+                if (seManager != null) seManager.Play("LightOn");
                 StartCoroutine("StartMinusBattery");//最初のバッテリーの減り
                 startBattery = false;
             }
@@ -61,9 +65,15 @@ public class LightManager : MonoBehaviour
             else{
                 FadeIn();
             }
+            lightOff = true;
 
         }
         else{//ライト消灯
+            if (lightOff)
+            {
+                lightOff = false;
+                if (seManager != null) seManager.Play("LightOn");
+            }
             FadeOut();
             startBattery = true;
         }
@@ -265,9 +275,10 @@ public class LightManager : MonoBehaviour
     /// </summary>
     /// <returns>battery</returns>
     public float getBattery(){
-        if(battery < 0){
+        if(battery <= 0){
             battery = 0;
+            return battery;
         }
-        return battery;
+        return battery + 0.5f;
     }
 }

@@ -276,13 +276,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 8272866993131041177, guid: aad593efd4c6b094f9ea504315d71847, type: 3}
-      propertyPath: lightButton
-      value: 323
-      objectReference: {fileID: 0}
-    - target: {fileID: 8272866993131041177, guid: aad593efd4c6b094f9ea504315d71847, type: 3}
-      propertyPath: damagePrefab
+      propertyPath: seManager
       value: 
-      objectReference: {fileID: 8358176040171245035, guid: aed3d9067d1f16d409af78a6867a350c, type: 3}
+      objectReference: {fileID: 1366731044}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
