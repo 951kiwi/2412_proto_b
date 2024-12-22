@@ -1027,9 +1027,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 149907434197921492, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -370
+      objectReference: {fileID: 0}
     - target: {fileID: 615468663721402088, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1261529751003673163, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2782074934521904400, guid: d1ed42814bf6931488b2b44623edad69, type: 3}
       propertyPath: _fade

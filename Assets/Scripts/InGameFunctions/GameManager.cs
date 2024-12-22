@@ -105,8 +105,8 @@ public class GameManager : MonoBehaviour
             RestartGame();
         }
 
-        /* ゲームオーバーじゃない状態でEscキーが押されたら */
-        if(Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+        /* ゲームオーバーじゃない状態でTabキーが押されたら */
+        if(Input.GetKeyDown(KeyCode.Tab) && !isGameOver)
         {
             /* ゲームが一時停止されているかどうかで処理を分岐 */
             if(isPaused)
